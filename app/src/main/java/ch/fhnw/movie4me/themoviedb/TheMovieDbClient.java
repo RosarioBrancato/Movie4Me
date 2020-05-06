@@ -149,21 +149,38 @@ public class TheMovieDbClient {
 
     private <T> T executeCall(Call<T> call) {
         T retVal = null;
+        final Response<T>[] response = new Response[1];
+
+        Thread thread = new Thread(() -> {
+            try {
+                response[0] = call.execute();
+
+            } catch (IOException e) {
+                Log.e(TAG, e.getMessage(), e);
+            }
+        });
+
+        thread.start();
 
         try {
-            Response<T> response = call.execute();
+            thread.join();
+        } catch (InterruptedException e) {
+            Log.e(TAG, e.getMessage(), e);
+        }
 
-            if (response.isSuccessful()) {
-                retVal = response.body();
+        if (response[0] != null) {
+            if (response[0].isSuccessful()) {
+                retVal = response[0].body();
 
-            } else if (response.errorBody() != null) {
-                Log.e(TAG, response.errorBody().string());
+            } else if (response[0].errorBody() != null) {
+                try {
+                    Log.e(TAG, response[0].errorBody().string());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             } else {
                 Log.e(TAG, call.request().url() + " was not successful.");
             }
-
-        } catch (IOException e) {
-            Log.e(TAG, e.getMessage(), e);
         }
 
         return retVal;

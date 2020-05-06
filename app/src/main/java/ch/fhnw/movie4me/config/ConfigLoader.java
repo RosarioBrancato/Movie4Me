@@ -14,7 +14,7 @@ public class ConfigLoader {
 
     private static ConfigLoader instance;
 
-    private String themoviedbApiKey = null;
+    private String theMovieDbApiKey = null;
 
     private ConfigLoader() {
     }
@@ -35,7 +35,7 @@ public class ConfigLoader {
             Properties properties = new Properties();
             properties.load(rawResource);
 
-            this.themoviedbApiKey = properties.getProperty("themoviedb_apy_key");
+            this.theMovieDbApiKey = properties.getProperty("themoviedb_apy_key");
 
         } catch (Resources.NotFoundException e) {
             Log.e(this.getClass().getName(), "Unable to find the config file: " + e.getMessage());
@@ -45,7 +45,7 @@ public class ConfigLoader {
     }
 
     public String getTheMovieDbApyKey() {
-        return this.themoviedbApiKey;
+        return this.theMovieDbApiKey;
     }
 
 }
