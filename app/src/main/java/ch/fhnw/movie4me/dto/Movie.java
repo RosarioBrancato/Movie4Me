@@ -104,4 +104,20 @@ public class Movie {
     public void setVoteAvg(double voteAvg) {
         this.voteAvg = voteAvg;
     }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getTagline() {
+        return tagline;
+    }
+
+    public void setTagline(String tagline) {
+        this.tagline = tagline;
+    }
 }

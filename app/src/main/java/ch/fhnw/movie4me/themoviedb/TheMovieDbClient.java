@@ -20,16 +20,29 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+/**
+ * //https://developer.android.com/training/volley/simple
+ */
 public class TheMovieDbClient {
-    //https://developer.android.com/training/volley/simple
+
+    private static TheMovieDbClient instance = null;
 
     private final String TAG = this.getClass().getName();
-    private final String API_KEY;
-
+    private String API_KEY;
     private ITheMovieDbService service;
 
 
-    public TheMovieDbClient(String apiKey) {
+    private TheMovieDbClient() {
+    }
+
+    public static TheMovieDbClient getInstance() {
+        if(instance == null) {
+            instance = new TheMovieDbClient();
+        }
+        return instance;
+    }
+
+    public void init(String apiKey) {
         API_KEY = apiKey;
 
         Gson gson = new GsonBuilder()
@@ -42,6 +55,7 @@ public class TheMovieDbClient {
                 .build();
 
         service = retrofit.create(ITheMovieDbService.class);
+
     }
 
 

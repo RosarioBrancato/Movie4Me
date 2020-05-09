@@ -1,6 +1,7 @@
 package ch.fhnw.movie4me.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Log;
@@ -18,8 +19,9 @@ import java.util.List;
 
 import ch.fhnw.movie4me.R;
 import ch.fhnw.movie4me.dto.Movie;
+import ch.fhnw.movie4me.ui.MovieDetailActivity;
 
-public class MovieArrayAdapter extends RecyclerView.Adapter<MovieViewHolder> {
+public class MovieArrayAdapter extends RecyclerView.Adapter<MovieViewHolder> implements OnItemClickListener {
 
     // This context we will use to inflate the Layout
     private Context context;
@@ -40,7 +42,10 @@ public class MovieArrayAdapter extends RecyclerView.Adapter<MovieViewHolder> {
     public MovieViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.layout_item_movie, null);
-        return new MovieViewHolder(view);
+
+        MovieViewHolder viewHolder = new MovieViewHolder(view);
+        viewHolder.setOnItemClickListener(this);
+        return viewHolder;
     }
 
     @Override
@@ -60,6 +65,17 @@ public class MovieArrayAdapter extends RecyclerView.Adapter<MovieViewHolder> {
     public int getItemCount() {
         return this.movieList.size();
     }
+
+    @Override
+    public void OnItemClickListener(int position) {
+        Intent intent = new Intent(this.context, MovieDetailActivity.class);
+
+        Movie movie = movieList.get(position);
+        intent.putExtra("MOVIE_ID", movie.getId());
+
+        this.context.startActivity(intent);
+    }
+
 
     private Bitmap getBitmapFromUrl(String url) {
         final Bitmap[] bmp = new Bitmap[1];

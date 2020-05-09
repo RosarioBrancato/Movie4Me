@@ -9,10 +9,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import ch.fhnw.movie4me.R;
 
-public class MovieViewHolder extends RecyclerView.ViewHolder  {
+public class MovieViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
     private TextView tvTitle, tvReleaseDate;
     private ImageView ivPoster;
+    private OnItemClickListener onItemClickListener;
 
     public MovieViewHolder(@NonNull View itemView) {
         super(itemView);
@@ -20,6 +21,8 @@ public class MovieViewHolder extends RecyclerView.ViewHolder  {
         ivPoster = itemView.findViewById(R.id.ivPoster);
         tvTitle = itemView.findViewById(R.id.tvTitle);
         tvReleaseDate = itemView.findViewById(R.id.tvReleaseDate);
+
+        itemView.setOnClickListener(this);
     }
 
     public TextView getTvTitle() {
@@ -32,5 +35,16 @@ public class MovieViewHolder extends RecyclerView.ViewHolder  {
 
     public ImageView getIvPoster() {
         return ivPoster;
+    }
+
+    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
+        this.onItemClickListener = onItemClickListener;
+    }
+
+    @Override
+    public void onClick(View v) {
+        if (this.onItemClickListener != null) {
+            this.onItemClickListener.OnItemClickListener(getAdapterPosition());
+        }
     }
 }

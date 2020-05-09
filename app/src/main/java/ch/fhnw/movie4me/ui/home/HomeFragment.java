@@ -1,5 +1,6 @@
 package ch.fhnw.movie4me.ui.home;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,9 +18,9 @@ import java.util.List;
 
 import ch.fhnw.movie4me.R;
 import ch.fhnw.movie4me.adapter.MovieArrayAdapter;
-import ch.fhnw.movie4me.config.ConfigLoader;
 import ch.fhnw.movie4me.dto.Movie;
 import ch.fhnw.movie4me.themoviedb.TheMovieDbClient;
+import ch.fhnw.movie4me.ui.MovieDetailActivity;
 
 public class HomeFragment extends Fragment {
 
@@ -42,11 +43,18 @@ public class HomeFragment extends Fragment {
         actionBar.setTitle("What's Popular");
         actionBar.setDisplayHomeAsUpEnabled(false);
 
-        this.client = new TheMovieDbClient(ConfigLoader.getInstance().getTheMovieDbApyKey());
+        this.client = TheMovieDbClient.getInstance();
         List<Movie> movies = this.client.getPopular();
 
         MovieArrayAdapter itemArrayAdapter = new MovieArrayAdapter(this.getContext(), movies);
         lvMovies.setAdapter(itemArrayAdapter);
+
         return root;
+    }
+
+    public void showMovie(View view) {
+        Intent intent = new Intent(this.getActivity(), MovieDetailActivity.class);
+        intent.putExtra("MOVIE_ID", 0);
+        startActivity(intent);
     }
 }

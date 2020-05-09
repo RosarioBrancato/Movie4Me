@@ -138,7 +138,8 @@ public class TheMovieDbClientTest {
         }
 
         String apiKey = properties.getProperty("themoviedb_apy_key");
-        this.client = new TheMovieDbClient(apiKey);
+        TheMovieDbClient.getInstance().init(apiKey);
+        this.client = TheMovieDbClient.getInstance();
     }
 
     @After
