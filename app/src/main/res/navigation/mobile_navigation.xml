@@ -12,14 +12,14 @@
         tools:layout="@layout/fragment_home" />
 
     <fragment
-        android:id="@+id/navigation_dashboard"
-        android:name="ch.fhnw.movie4me.ui.dashboard.DashboardFragment"
-        android:label="@string/title_dashboard"
-        tools:layout="@layout/fragment_dashboard" />
+        android:id="@+id/navigation_lists"
+        android:name="ch.fhnw.movie4me.ui.lists.ListsFragment"
+        android:label="@string/title_lists"
+        tools:layout="@layout/fragment_lists" />
 
     <fragment
-        android:id="@+id/navigation_notifications"
-        android:name="ch.fhnw.movie4me.ui.notifications.NotificationsFragment"
-        android:label="@string/title_notifications"
+        android:id="@+id/navigation_search"
+        android:name="ch.fhnw.movie4me.ui.search.SearchFragment"
+        android:label="@string/title_search"
         tools:layout="@layout/fragment_notifications" />
 </navigation>

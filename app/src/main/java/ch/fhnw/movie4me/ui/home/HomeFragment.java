@@ -34,7 +34,7 @@ public class HomeFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_home, container, false);
 
-        final RecyclerView lvMovies = root.findViewById(R.id.rvPlayers);
+        final RecyclerView lvMovies = root.findViewById(R.id.rvMovies);
         lvMovies.setHasFixedSize(true);
         lvMovies.setLayoutManager(new LinearLayoutManager(this.getActivity()));
 
