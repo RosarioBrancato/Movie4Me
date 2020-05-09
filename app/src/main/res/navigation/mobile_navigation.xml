@@ -12,10 +12,10 @@
         tools:layout="@layout/fragment_home" />
 
     <fragment
-        android:id="@+id/navigation_lists"
-        android:name="ch.fhnw.movie4me.ui.lists.ListsFragment"
-        android:label="@string/title_lists"
-        tools:layout="@layout/fragment_lists" />
+        android:id="@+id/navigation_movielists"
+        android:name="ch.fhnw.movie4me.ui.movielists.MovieListsFragment"
+        android:label="@string/title_movielists"
+        tools:layout="@layout/fragment_movielists" />
 
     <fragment
         android:id="@+id/navigation_search"

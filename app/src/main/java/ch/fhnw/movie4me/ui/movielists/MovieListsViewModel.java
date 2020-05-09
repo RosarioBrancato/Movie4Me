@@ -1,14 +1,14 @@
-package ch.fhnw.movie4me.ui.lists;
+package ch.fhnw.movie4me.ui.movielists;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-public class ListsViewModel extends ViewModel {
+public class MovieListsViewModel extends ViewModel {
 
     private MutableLiveData<String> mText;
 
-    public ListsViewModel() {
+    public MovieListsViewModel() {
         mText = new MutableLiveData<>();
         mText.setValue("This is dashboard fragment");
     }
