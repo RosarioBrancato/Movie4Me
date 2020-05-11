@@ -13,6 +13,7 @@ import ch.fhnw.movie4me.themoviedb.TheMovieDbClient;
 public class MovieDetailActivity extends AppCompatActivity {
 
     private TheMovieDbClient client;
+    private Movie movie;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,10 +28,10 @@ public class MovieDetailActivity extends AppCompatActivity {
         if (intent != null && intent.hasExtra("MOVIE_ID")) {
             // Get data
             int movieId = intent.getIntExtra("MOVIE_ID", -1);
-            Movie movie = this.client.getMovie(movieId);
+            this.movie = this.client.getMovie(movieId);
 
             final TextView txTitle = findViewById(R.id.txTitle);
-            txTitle.setText("TEMP - Movie title: " + movie.getTitle());
+            txTitle.setText("TEMP - Movie title: " + this.movie.getTitle());
         }
     }
 }

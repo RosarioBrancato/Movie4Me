@@ -11,6 +11,7 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import ch.fhnw.movie4me.config.ConfigLoader;
+import ch.fhnw.movie4me.db.DbAccess;
 import ch.fhnw.movie4me.themoviedb.TheMovieDbClient;
 
 public class MainActivity extends AppCompatActivity {
@@ -21,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
 
         ConfigLoader.getInstance().init(this.getApplicationContext());
         TheMovieDbClient.getInstance().init(ConfigLoader.getInstance().getTheMovieDbApyKey());
+        DbAccess.init(this.getApplicationContext());
 
         setContentView(R.layout.activity_main);
         BottomNavigationView navView = findViewById(R.id.nav_view);
