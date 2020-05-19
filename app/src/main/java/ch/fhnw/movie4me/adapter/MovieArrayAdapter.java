@@ -20,6 +20,7 @@ import java.util.List;
 import ch.fhnw.movie4me.R;
 import ch.fhnw.movie4me.dto.Movie;
 import ch.fhnw.movie4me.ui.MovieDetailActivity;
+import ch.fhnw.movie4me.util.ImageUtils;
 
 public class MovieArrayAdapter extends RecyclerView.Adapter<MovieViewHolder> implements OnItemClickListener {
 
@@ -55,7 +56,7 @@ public class MovieArrayAdapter extends RecyclerView.Adapter<MovieViewHolder> imp
         holder.getTvTitle().setText(movie.getTitle());
         holder.getTvReleaseDate().setText(movie.getReleaseDateFormatted());
 
-        Bitmap bitmap = this.getBitmapFromUrl(movie.getPosterUrl());
+        Bitmap bitmap = ImageUtils.getBitmapFromUrl(movie.getPosterUrl());
         if (bitmap != null) {
             holder.getIvPoster().setImageBitmap(bitmap);
         }
@@ -74,30 +75,5 @@ public class MovieArrayAdapter extends RecyclerView.Adapter<MovieViewHolder> imp
         intent.putExtra("MOVIE_ID", movie.getId());
 
         this.context.startActivity(intent);
-    }
-
-
-    private Bitmap getBitmapFromUrl(String url) {
-        final Bitmap[] bmp = new Bitmap[1];
-
-        Thread thread = new Thread(() -> {
-            try {
-                InputStream in = new URL(url).openStream();
-                bmp[0] = BitmapFactory.decodeStream(in);
-
-            } catch (IOException e) {
-                Log.e(this.getClass().getName(), e.getMessage(), e);
-            }
-        });
-
-        thread.start();
-
-        try {
-            thread.join();
-        } catch (InterruptedException e) {
-            Log.e(this.getClass().getName(), e.getMessage(), e);
-        }
-
-        return bmp[0];
     }
 }
