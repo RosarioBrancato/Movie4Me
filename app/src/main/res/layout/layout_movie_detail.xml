@@ -4,11 +4,54 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".ui.MovieDetailActivity">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="58dp">
+
+        <TextView
+            android:id="@+id/txTitle"
+            android:layout_width="296dp"
+            android:layout_height="wrap_content"
+            android:text="TextView" />
+
+        <Button
+            android:id="@+id/btnShare"
+            android:layout_width="59dp"
+            android:layout_height="32dp"
+            android:text="Share" />
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/imgMovie"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:srcCompat="@tools:sample/avatars" />
+
     <TextView
-        android:id="@+id/txTitle"
+        android:id="@+id/txDescription"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="TextView" />
+
+    <TextView
+        android:id="@+id/txRelease"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="TextView" />
+
+    <TextView
+        android:id="@+id/txActors"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="TextView" />
+
+    <TextView
+        android:id="@+id/txLink"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="TextView" />
+
 </LinearLayout>

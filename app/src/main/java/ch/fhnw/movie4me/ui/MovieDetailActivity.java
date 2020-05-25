@@ -3,12 +3,22 @@ package ch.fhnw.movie4me.ui;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.media.Image;
 import android.os.Bundle;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 import ch.fhnw.movie4me.R;
 import ch.fhnw.movie4me.dto.Movie;
 import ch.fhnw.movie4me.themoviedb.TheMovieDbClient;
+import ch.fhnw.movie4me.util.ImageUtils;
+import retrofit2.http.Url;
 
 public class MovieDetailActivity extends AppCompatActivity {
 
@@ -31,7 +41,39 @@ public class MovieDetailActivity extends AppCompatActivity {
             this.movie = this.client.getMovie(movieId);
 
             final TextView txTitle = findViewById(R.id.txTitle);
-            txTitle.setText("TEMP - Movie title: " + this.movie.getTitle());
+            txTitle.setText("Movie title: " + this.movie.getTitle());
+
+
+            //Bitmap bitmap = ImageUtils.getBitmapFromUrl(movie.getPosterUrl());
+            //if(bitmap != null){
+            //    imgMovie.setImageBitmap(bitmap);
+            //}
+
+
+            final TextView txDescription = findViewById(R.id.txDescription);
+            txDescription.setText("Description: " + this.movie.getOverview());
+
+            final TextView txRelease = findViewById(R.id.txRelease);
+            txRelease.setText("Release: " + this.movie.getReleaseDateFormatted());
+
+            final TextView txLink = findViewById(R.id.txLink);
+            txLink.setText("Movie Link: " + this.movie.getPosterUrl());
+
+
+            final TextView txActors = findViewById(R.id.txActors);
+            txActors.setText("Movie Actors: " + this.movie.getOverview());
+
+
+
+
+            //ImageView imgMovie = (ImageView) findViewById(R.id.imgMovie);
+            //imgMovie.setImageResource();
+
+            //final TextView txLink = findViewById(R.id.txLink);
+            //txLink.setText(this.movie.getPosterUrl());
+
+
+
         }
     }
 }
