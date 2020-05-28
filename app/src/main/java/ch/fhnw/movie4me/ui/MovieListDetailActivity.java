@@ -19,6 +19,8 @@ import ch.fhnw.movie4me.themoviedb.TheMovieDbClient;
 
 public class MovieListDetailActivity extends AppCompatActivity {
 
+    public static final String EXTRA_MOVIE_LIST_ID = "ch.fhnw.movie4me.ui.MOVIE_LIST_ID";
+
     private TheMovieDbClient theMovieDbClient;
     private MovieListDb movieListDb;
     private MovieListDetailDb movieListDetailDb;
@@ -39,9 +41,9 @@ public class MovieListDetailActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         // Check if Intent is not empty and has data
-        if (intent != null && intent.hasExtra("MOVIE_LIST_ID")) {
+        if (intent != null && intent.hasExtra(EXTRA_MOVIE_LIST_ID)) {
             // Get data
-            int movieListId = intent.getIntExtra("MOVIE_LIST_ID", -1);
+            int movieListId = intent.getIntExtra(EXTRA_MOVIE_LIST_ID, -1);
             this.movieList = this.movieListDb.get(movieListId);
             this.movieListDetails = this.movieListDetailDb.getByMovieListId(movieListId);
 
