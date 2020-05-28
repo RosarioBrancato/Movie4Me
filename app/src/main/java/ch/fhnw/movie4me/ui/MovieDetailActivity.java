@@ -7,6 +7,8 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.media.Image;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -40,6 +42,26 @@ public class MovieDetailActivity extends AppCompatActivity {
             int movieId = intent.getIntExtra("MOVIE_ID", -1);
             this.movie = this.client.getMovie(movieId);
 
+            
+            Button btnShare =(Button) findViewById(R.id.btnShare);
+            btnShare.setOnClickListener(new View.OnClickListener(){
+                @Override
+
+
+
+                public void onClick(View v){
+                    Intent shareIntent = new Intent (Intent.ACTION_SEND);
+                    shareIntent.setType("text/plain");
+                    String shareBody = "Look i found this movie on Movie4Me for you: ";
+                    String shareMessage = "Take a look at this awesome movie!";
+                    shareIntent.putExtra(Intent.EXTRA_SUBJECT, shareMessage);
+                    shareIntent.putExtra(Intent.EXTRA_TEXT, shareBody);
+                    startActivity(Intent.createChooser(shareIntent, "Medium to share with"));
+                }
+
+
+            });
+
             final TextView txTitle = findViewById(R.id.txTitle);
             txTitle.setText("Movie title: " + this.movie.getTitle());
 
@@ -71,6 +93,7 @@ public class MovieDetailActivity extends AppCompatActivity {
 
             //final TextView txLink = findViewById(R.id.txLink);
             //txLink.setText(this.movie.getPosterUrl());
+
 
 
 
