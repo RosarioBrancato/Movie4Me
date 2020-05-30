@@ -17,8 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import ch.fhnw.movie4me.R;
-import ch.fhnw.movie4me.adapter.MovieArrayAdapter;
-import ch.fhnw.movie4me.adapter.MovieListArrayAdapter;
+import ch.fhnw.movie4me.adapter.movielist.MovieListRecyclerViewAdapter;
 import ch.fhnw.movie4me.db.MovieListDb;
 import ch.fhnw.movie4me.db.MovieListDetailDb;
 import ch.fhnw.movie4me.dto.Movie;
@@ -69,7 +68,7 @@ public class AddMovieList2<RecyclerAdapter> extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);
 
 
-        MovieListArrayAdapter adapter = new MovieListArrayAdapter(this, movieLists);
+        MovieListRecyclerViewAdapter adapter = new MovieListRecyclerViewAdapter(this, movieLists);
 
         recyclerView.setHasFixedSize(true);
 
@@ -124,7 +123,7 @@ public class AddMovieList2<RecyclerAdapter> extends AppCompatActivity {
         lvMovieLists.setHasFixedSize(true);
         lvMovieLists.setLayoutManager(new LinearLayoutManager(this));
 
-        MovieListArrayAdapter itemArrayAdapter = new MovieListArrayAdapter(this,movieLists);
+        MovieListRecyclerViewAdapter itemArrayAdapter = new MovieListRecyclerViewAdapter(this,movieLists);
         lvMovieLists.setAdapter(itemArrayAdapter);
     }
 

@@ -22,8 +22,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 import ch.fhnw.movie4me.R;
-import ch.fhnw.movie4me.adapter.MovieArrayAdapter;
-import ch.fhnw.movie4me.adapter.MovieListArrayAdapter;
+import ch.fhnw.movie4me.adapter.movie.MovieRecyclerViewAdapter;
 import ch.fhnw.movie4me.dto.Movie;
 import ch.fhnw.movie4me.dto.MovieList;
 import ch.fhnw.movie4me.themoviedb.TheMovieDbClient;
@@ -50,7 +49,7 @@ public class SearchFragment extends Fragment {
         List<Movie> movies = this.theMovieDbClient.searchMovie("Star Wars");
         //
 
-        MovieArrayAdapter itemArrayAdapter = new MovieArrayAdapter(this.getContext(), movies);
+        MovieRecyclerViewAdapter itemArrayAdapter = new MovieRecyclerViewAdapter(this.getContext(), movies);
         lvSearchResults.setAdapter(itemArrayAdapter);
 
 
@@ -97,7 +96,7 @@ public class SearchFragment extends Fragment {
             lvSearchResults.setHasFixedSize(true);
             lvSearchResults.setLayoutManager(new LinearLayoutManager(this.getActivity()));
 
-            MovieArrayAdapter itemArrayAdapter = new MovieArrayAdapter(this.getContext(), searchResults);
+            MovieRecyclerViewAdapter itemArrayAdapter = new MovieRecyclerViewAdapter(this.getContext(), searchResults);
             lvSearchResults.setAdapter(itemArrayAdapter);
 
             final TextView textView = root.findViewById(R.id.text_notifications);

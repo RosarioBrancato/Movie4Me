@@ -5,11 +5,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
-import android.widget.Button;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -19,7 +16,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.util.List;
 
 import ch.fhnw.movie4me.R;
-import ch.fhnw.movie4me.adapter.MovieListArrayAdapter;
+import ch.fhnw.movie4me.adapter.movielist.MovieListRecyclerViewAdapter;
 import ch.fhnw.movie4me.db.MovieListDb;
 import ch.fhnw.movie4me.dto.MovieList;
 import ch.fhnw.movie4me.ui.MovieListEditActivity;
@@ -62,7 +59,7 @@ public class MovieListsFragment extends Fragment {
         lvMovieLists.setHasFixedSize(true);
         lvMovieLists.setLayoutManager(new LinearLayoutManager(this.getActivity()));
 
-        MovieListArrayAdapter itemArrayAdapter = new MovieListArrayAdapter(this.getContext(), movieLists);
+        MovieListRecyclerViewAdapter itemArrayAdapter = new MovieListRecyclerViewAdapter(this.getContext(), movieLists);
         lvMovieLists.setAdapter(itemArrayAdapter);
     }
 

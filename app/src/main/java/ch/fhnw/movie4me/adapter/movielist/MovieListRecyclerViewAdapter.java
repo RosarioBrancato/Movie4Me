@@ -1,8 +1,7 @@
-package ch.fhnw.movie4me.adapter;
+package ch.fhnw.movie4me.adapter.movielist;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,15 +12,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 import ch.fhnw.movie4me.R;
-import ch.fhnw.movie4me.dto.Movie;
+import ch.fhnw.movie4me.adapter.OnItemClickListener;
 import ch.fhnw.movie4me.dto.MovieList;
-import ch.fhnw.movie4me.dto.MovieListDetail;
-import ch.fhnw.movie4me.ui.MovieDetailActivity;
 import ch.fhnw.movie4me.ui.MovieListDetailActivity;
-import ch.fhnw.movie4me.ui.MovieListEditActivity;
-import ch.fhnw.movie4me.util.ImageUtils;
 
-public class MovieListArrayAdapter extends RecyclerView.Adapter<MovieListViewHolder> implements OnItemClickListener {
+public class MovieListRecyclerViewAdapter extends RecyclerView.Adapter<MovieListViewHolder> implements OnItemClickListener {
 
     // This context we will use to inflate the Layout
     private Context context;
@@ -31,7 +26,7 @@ public class MovieListArrayAdapter extends RecyclerView.Adapter<MovieListViewHol
 
 
     // Getting the context and player List with constructor
-    public MovieListArrayAdapter(Context context, List<MovieList> movieListList) {
+    public MovieListRecyclerViewAdapter(Context context, List<MovieList> movieListList) {
         this.context = context;
         this.movieListList = movieListList;
     }
@@ -62,7 +57,7 @@ public class MovieListArrayAdapter extends RecyclerView.Adapter<MovieListViewHol
     }
 
     @Override
-    public void OnItemClickListener(int position) {
+    public void onItemClickListener(int position) {
         Intent intent = new Intent(this.context, MovieListDetailActivity.class);
 
         MovieList movieList = movieListList.get(position);

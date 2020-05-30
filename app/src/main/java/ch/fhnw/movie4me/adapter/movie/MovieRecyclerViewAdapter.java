@@ -1,10 +1,7 @@
-package ch.fhnw.movie4me.adapter;
+package ch.fhnw.movie4me.adapter.movie;
 
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,31 +9,34 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.URL;
 import java.util.List;
 
 import ch.fhnw.movie4me.R;
+import ch.fhnw.movie4me.adapter.OnItemClickListener;
+import ch.fhnw.movie4me.adapter.OnItemLongClickListener;
 import ch.fhnw.movie4me.dto.Movie;
-import ch.fhnw.movie4me.ui.MovieDetailActivity;
 import ch.fhnw.movie4me.util.ImageUtils;
 
-public class MovieArrayAdapter extends RecyclerView.Adapter<MovieViewHolder> implements OnItemClickListener {
+public class MovieRecyclerViewAdapter extends RecyclerView.Adapter<MovieViewHolder> implements OnItemClickListener, OnItemLongClickListener {
 
-    // This context we will use to inflate the Layout
     private Context context;
-
-    // We are storing all the players in a List
     private List<Movie> movieList;
-
+    private OnMovieClickListener onMovieClickListener;
+    private OnMovieLongClickListener onMovieLongClickListener;
 
     // Getting the context and player List with constructor
-    public MovieArrayAdapter(Context context, List<Movie> movieList) {
+    public MovieRecyclerViewAdapter(Context context, List<Movie> movieList) {
         this.context = context;
         this.movieList = movieList;
     }
 
+    public void setOnMovieClickListener(OnMovieClickListener onMovieClickListener) {
+        this.onMovieClickListener = onMovieClickListener;
+    }
+
+    public void setOnMovieLongClickListener(OnMovieLongClickListener onMovieLongClickListener) {
+        this.onMovieLongClickListener = onMovieLongClickListener;
+    }
 
     @NonNull
     @Override
@@ -46,6 +46,7 @@ public class MovieArrayAdapter extends RecyclerView.Adapter<MovieViewHolder> imp
 
         MovieViewHolder viewHolder = new MovieViewHolder(view);
         viewHolder.setOnItemClickListener(this);
+        viewHolder.setOnItemLongClickListener(this);
         return viewHolder;
     }
 
@@ -68,12 +69,18 @@ public class MovieArrayAdapter extends RecyclerView.Adapter<MovieViewHolder> imp
     }
 
     @Override
-    public void OnItemClickListener(int position) {
-        Intent intent = new Intent(this.context, MovieDetailActivity.class);
+    public void onItemClickListener(int position) {
+        if(this.onMovieClickListener != null) {
+            Movie movie = movieList.get(position);
+            this.onMovieClickListener.onMovieClickListener(movie);
+        }
+    }
 
-        Movie movie = movieList.get(position);
-        intent.putExtra("MOVIE_ID", movie.getId());
-
-        this.context.startActivity(intent);
+    @Override
+    public void onItemLongClickListener(int position) {
+        if(this.onMovieLongClickListener != null) {
+            Movie movie = movieList.get(position);
+            this.onMovieLongClickListener.onMovieLongClickListener(movie);
+        }
     }
 }

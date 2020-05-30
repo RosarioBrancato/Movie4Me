@@ -1,13 +1,13 @@
-package ch.fhnw.movie4me.adapter;
+package ch.fhnw.movie4me.adapter.movielist;
 
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import ch.fhnw.movie4me.R;
+import ch.fhnw.movie4me.adapter.OnItemClickListener;
 
 public class MovieListViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
@@ -38,7 +38,7 @@ public class MovieListViewHolder extends RecyclerView.ViewHolder implements View
     @Override
     public void onClick(View v) {
         if (this.onItemClickListener != null) {
-            this.onItemClickListener.OnItemClickListener(getAdapterPosition());
+            this.onItemClickListener.onItemClickListener(getAdapterPosition());
         }
     }
 }

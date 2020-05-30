@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ch.fhnw.movie4me.R;
-import ch.fhnw.movie4me.adapter.MovieArrayAdapter;
+import ch.fhnw.movie4me.adapter.movie.MovieRecyclerViewAdapter;
 import ch.fhnw.movie4me.db.MovieListDb;
 import ch.fhnw.movie4me.db.MovieListDetailDb;
 import ch.fhnw.movie4me.dto.Movie;
@@ -75,7 +75,7 @@ public class MovieListDetailActivity extends AppCompatActivity {
             this.theMovieDbClient = TheMovieDbClient.getInstance();
             List<Movie> movies = this.theMovieDbClient.searchMovie("Star Wars");
 
-            MovieArrayAdapter itemArrayAdapter = new MovieArrayAdapter(this, movies);
+            MovieRecyclerViewAdapter itemArrayAdapter = new MovieRecyclerViewAdapter(this, movies);
             lvMoviesList.setAdapter(itemArrayAdapter);
 
         }

@@ -5,6 +5,6 @@ package ch.fhnw.movie4me.adapter;
  */
 public interface OnItemClickListener {
 
-    void OnItemClickListener(int position);
+    void onItemClickListener(int position);
 
 }
