@@ -4,28 +4,23 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.media.Image;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
-
 import ch.fhnw.movie4me.R;
 import ch.fhnw.movie4me.dto.Movie;
 import ch.fhnw.movie4me.themoviedb.TheMovieDbClient;
+import ch.fhnw.movie4me.ui.search.AddMovieList2;
 import ch.fhnw.movie4me.util.ImageUtils;
-import retrofit2.http.Url;
 
 public class MovieDetailActivity extends AppCompatActivity {
 
     private TheMovieDbClient client;
     private Movie movie;
+    ImageView imgMovie = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,18 +57,30 @@ public class MovieDetailActivity extends AppCompatActivity {
 
             });
 
+            Button btnAddList = (Button) findViewById(R.id.btnAddList);
+            btnAddList.setOnClickListener(new View.OnClickListener(){
+                @Override
+                public void onClick(View v) {
+                    openAddList();
+                }
+
+            });
+
             final TextView txTitle = findViewById(R.id.txTitle);
-            txTitle.setText("Movie title: " + this.movie.getTitle());
+            txTitle.setText(this.movie.getTitle());
 
 
-            //Bitmap bitmap = ImageUtils.getBitmapFromUrl(movie.getPosterUrl());
-            //if(bitmap != null){
-            //    imgMovie.setImageBitmap(bitmap);
-            //}
+
+            imgMovie = findViewById(R.id.imgMovie);
+            Bitmap bitmap = ImageUtils.getBitmapFromUrl(movie.getPosterUrl());
+            if(bitmap != null){
+
+                imgMovie.setImageBitmap(bitmap);
+            }
 
 
             final TextView txDescription = findViewById(R.id.txDescription);
-            txDescription.setText("Description: " + this.movie.getOverview());
+            txDescription.setText(this.movie.getOverview());
 
             final TextView txRelease = findViewById(R.id.txRelease);
             txRelease.setText("Release: " + this.movie.getReleaseDateFormatted());
@@ -82,8 +89,8 @@ public class MovieDetailActivity extends AppCompatActivity {
             txLink.setText("Movie Link: " + this.movie.getPosterUrl());
 
 
-            final TextView txActors = findViewById(R.id.txActors);
-            txActors.setText("Movie Actors: " + this.movie.getOverview());
+            //final TextView txActors = findViewById(R.id.txActors);
+            //txActors.setText("Movie Actors: " + this.movie.getOverview());
 
 
 
@@ -98,5 +105,10 @@ public class MovieDetailActivity extends AppCompatActivity {
 
 
         }
+    }
+
+    public void openAddList() {
+        Intent intent = new Intent(MovieDetailActivity.this, AddMovieList2.class);
+        startActivity(intent);
     }
 }
