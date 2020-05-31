@@ -1,5 +1,6 @@
 package ch.fhnw.movie4me.ui.search;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,22 +24,26 @@ import java.util.List;
 
 import ch.fhnw.movie4me.R;
 import ch.fhnw.movie4me.adapter.movie.MovieRecyclerViewAdapter;
+import ch.fhnw.movie4me.adapter.movie.OnMovieClickListener;
+import ch.fhnw.movie4me.adapter.movie.OnMovieLongClickListener;
 import ch.fhnw.movie4me.dto.Movie;
 import ch.fhnw.movie4me.dto.MovieList;
 import ch.fhnw.movie4me.themoviedb.TheMovieDbClient;
+import ch.fhnw.movie4me.ui.MovieDetailActivity;
 
-public class SearchFragment extends Fragment {
+public class SearchFragment extends Fragment implements OnMovieClickListener, OnMovieLongClickListener {
 
     private TheMovieDbClient theMovieDbClient;
     private View root;
     private Button btnSearch;
+    private List<Movie> movies;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         root = inflater.inflate(R.layout.fragment_notifications, container, false);
 
-        final RecyclerView lvSearchResults = root.findViewById(R.id.rvSearchResults);
-        lvSearchResults.setHasFixedSize(true);
-        lvSearchResults.setLayoutManager(new LinearLayoutManager(this.getActivity()));
+        // final RecyclerView lvSearchResults = root.findViewById(R.id.rvSearchResults);
+        // lvSearchResults.setHasFixedSize(true);
+        // lvSearchResults.setLayoutManager(new LinearLayoutManager(this.getActivity()));
 
         ActionBar actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
         actionBar.setTitle("Movie Search");
@@ -46,11 +51,11 @@ public class SearchFragment extends Fragment {
 
         this.theMovieDbClient = TheMovieDbClient.getInstance();
         // temp
-        List<Movie> movies = this.theMovieDbClient.searchMovie("Star Wars");
+        //movies = this.theMovieDbClient.searchMovie("Star Wars");
         //
 
-        MovieRecyclerViewAdapter itemArrayAdapter = new MovieRecyclerViewAdapter(this.getContext(), movies);
-        lvSearchResults.setAdapter(itemArrayAdapter);
+        //MovieRecyclerViewAdapter itemArrayAdapter = new MovieRecyclerViewAdapter(this.getContext(), movies);
+        //lvSearchResults.setAdapter(itemArrayAdapter);
 
 
         //TEMP
@@ -97,6 +102,8 @@ public class SearchFragment extends Fragment {
             lvSearchResults.setLayoutManager(new LinearLayoutManager(this.getActivity()));
 
             MovieRecyclerViewAdapter itemArrayAdapter = new MovieRecyclerViewAdapter(this.getContext(), searchResults);
+            itemArrayAdapter.setOnMovieClickListener(this);
+            itemArrayAdapter.setOnMovieLongClickListener(this);
             lvSearchResults.setAdapter(itemArrayAdapter);
 
             final TextView textView = root.findViewById(R.id.text_notifications);
@@ -107,6 +114,18 @@ public class SearchFragment extends Fragment {
             textView.setText("I have found no movies containing " + movieName + " in the title.");
         }
     }
+    @Override
+    public void onMovieClickListener(Movie movie) {
+        if (movie != null) {
+            Intent intent = new Intent(getContext(), MovieDetailActivity.class);
+            intent.putExtra("MOVIE_ID", movie.getId());
+            getContext().startActivity(intent);
+        }
+    }
 
-    ;
+    @Override
+    public void onMovieLongClickListener(Movie movie) {
+        //TEMP EXAMPLE
+        Toast.makeText(getContext(), "Long click.", Toast.LENGTH_LONG).show();
+    }
 }
