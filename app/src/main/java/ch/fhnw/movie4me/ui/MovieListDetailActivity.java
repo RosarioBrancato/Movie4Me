@@ -86,4 +86,5 @@ public class MovieListDetailActivity extends AppCompatActivity {
         Intent intent = new Intent(this, MovieListEditActivity.class);
         startActivity(intent);
     }
+
 }
