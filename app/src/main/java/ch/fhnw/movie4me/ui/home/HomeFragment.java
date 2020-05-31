@@ -54,6 +54,7 @@ public class HomeFragment extends Fragment implements OnMovieClickListener, OnMo
 
         this.client = TheMovieDbClient.getInstance();
         List<Movie> movies = this.client.getPopular();
+        actionBar.setTitle("What's Popular");
         this.resetAdapter(movies);
 
         return root;
