@@ -17,11 +17,14 @@ import java.util.List;
 
 import ch.fhnw.movie4me.R;
 import ch.fhnw.movie4me.adapter.movielist.MovieListRecyclerViewAdapter;
+import ch.fhnw.movie4me.adapter.movielist.OnMovieListClickListener;
+import ch.fhnw.movie4me.adapter.movielist.OnMovieListLongClickListener;
 import ch.fhnw.movie4me.db.MovieListDb;
 import ch.fhnw.movie4me.dto.MovieList;
+import ch.fhnw.movie4me.ui.MovieListDetailActivity;
 import ch.fhnw.movie4me.ui.MovieListEditActivity;
 
-public class MovieListsFragment extends Fragment {
+public class MovieListsFragment extends Fragment implements OnMovieListClickListener, OnMovieListLongClickListener {
 
     private View rootView;
 
@@ -69,4 +72,17 @@ public class MovieListsFragment extends Fragment {
     }
 
 
+    @Override
+    public void onMovieListClickListener(MovieList movieList) {
+        if(movieList != null) {
+            Intent intent = new Intent(getContext(), MovieListDetailActivity.class);
+            intent.putExtra(MovieListDetailActivity.EXTRA_MOVIE_LIST_ID, movieList.getId());
+            getContext().startActivity(intent);
+        }
+    }
+
+    @Override
+    public void onMovieListLongClickListener(MovieList movieList) {
+
+    }
 }

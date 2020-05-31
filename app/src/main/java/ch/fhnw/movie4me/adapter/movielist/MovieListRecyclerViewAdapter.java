@@ -13,22 +13,22 @@ import java.util.List;
 
 import ch.fhnw.movie4me.R;
 import ch.fhnw.movie4me.adapter.OnItemClickListener;
+import ch.fhnw.movie4me.adapter.OnItemLongClickListener;
 import ch.fhnw.movie4me.dto.MovieList;
 import ch.fhnw.movie4me.ui.MovieListDetailActivity;
 
-public class MovieListRecyclerViewAdapter extends RecyclerView.Adapter<MovieListViewHolder> implements OnItemClickListener {
+public class MovieListRecyclerViewAdapter extends RecyclerView.Adapter<MovieListViewHolder> implements OnItemClickListener, OnItemLongClickListener {
 
-    // This context we will use to inflate the Layout
     private Context context;
-
-    // We are storing all the players in a List
-    private List<MovieList> movieListList;
+    private List<MovieList> movieLists;
+    private OnMovieListClickListener onMovieListClickListener;
+    private OnMovieListLongClickListener onMovieListLongClickListener;
 
 
     // Getting the context and player List with constructor
-    public MovieListRecyclerViewAdapter(Context context, List<MovieList> movieListList) {
+    public MovieListRecyclerViewAdapter(Context context, List<MovieList> movieLists) {
         this.context = context;
-        this.movieListList = movieListList;
+        this.movieLists = movieLists;
     }
 
 
@@ -45,7 +45,7 @@ public class MovieListRecyclerViewAdapter extends RecyclerView.Adapter<MovieList
 
     @Override
     public void onBindViewHolder(@NonNull MovieListViewHolder holder, int position) {
-        MovieList movieList = this.movieListList.get(position);
+        MovieList movieList = this.movieLists.get(position);
 
         holder.getTvName().setText(movieList.getName());
         holder.getTvDescription().setText(movieList.getDescription());
@@ -53,16 +53,24 @@ public class MovieListRecyclerViewAdapter extends RecyclerView.Adapter<MovieList
 
     @Override
     public int getItemCount() {
-        return this.movieListList.size();
+        return this.movieLists.size();
     }
 
     @Override
     public void onItemClickListener(int position) {
         Intent intent = new Intent(this.context, MovieListDetailActivity.class);
 
-        MovieList movieList = movieListList.get(position);
+        MovieList movieList = movieLists.get(position);
         intent.putExtra(MovieListDetailActivity.EXTRA_MOVIE_LIST_ID, movieList.getId());
 
         this.context.startActivity(intent);
+    }
+
+    @Override
+    public void onItemLongClickListener(int position) {
+        if(this.onMovieListLongClickListener != null) {
+            MovieList movieList = this.movieLists.get(position);
+            this.onMovieListLongClickListener.onMovieListLongClickListener(movieList);
+        }
     }
 }
