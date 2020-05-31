@@ -12,27 +12,33 @@ import java.net.URL;
 public class ImageUtils {
 
     public static Bitmap getBitmapFromUrl(String url) {
-        final Bitmap[] bmp = new Bitmap[1];
+        Bitmap bitmap = null;
 
-        Thread thread = new Thread(() -> {
+        if(url != null && url.length() > 0) {
+            final Bitmap[] bmp = new Bitmap[1];
+
+            Thread thread = new Thread(() -> {
+                try {
+                    InputStream in = new URL(url).openStream();
+                    bmp[0] = BitmapFactory.decodeStream(in);
+
+                } catch (IOException e) {
+                    Log.e(ImageUtils.class.getName(), e.getMessage(), e);
+                }
+            });
+
+            thread.start();
+
             try {
-                InputStream in = new URL(url).openStream();
-                bmp[0] = BitmapFactory.decodeStream(in);
-
-            } catch (IOException e) {
+                thread.join();
+            } catch (InterruptedException e) {
                 Log.e(ImageUtils.class.getName(), e.getMessage(), e);
             }
-        });
 
-        thread.start();
-
-        try {
-            thread.join();
-        } catch (InterruptedException e) {
-            Log.e(ImageUtils.class.getName(), e.getMessage(), e);
+            bitmap = bmp[0];
         }
 
-        return bmp[0];
+        return bitmap;
     }
 
 }
