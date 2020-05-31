@@ -18,6 +18,7 @@ import android.view.ViewGroup;
 
 import ch.fhnw.movie4me.R;
 import ch.fhnw.movie4me.adapter.movielist.MovieListRecyclerViewAdapter;
+import ch.fhnw.movie4me.adapter.movielist.MovieListViewHolder;
 import ch.fhnw.movie4me.db.MovieListDb;
 import ch.fhnw.movie4me.db.MovieListDetailDb;
 import ch.fhnw.movie4me.dto.Movie;
@@ -52,11 +53,12 @@ public class AddMovieList2<RecyclerAdapter> extends AppCompatActivity {
             super.onCreate(savedInstanceState);
             setContentView(R.layout.activity_add_movie_list2);
 
-        /**this.client = TheMovieDbClient.getInstance();
-        List<Movie> movies = this.client.getPopular();
 
-        MovieArrayAdapter itemArrayAdapter = new MovieArrayAdapter(this.getContext(), movies);
-        lvMovies.setAdapter(itemArrayAdapter);**/
+        //final TextView txTitle = findViewById(R.id.txTitle);
+        //txTitle.setText(this.movie.getTitle());
+
+        final TextView txTitleList = findViewById(R.id.txTitleList);
+        txTitleList.setText("Available Lists");
 
         this.movieListDb = new MovieListDb();
 
@@ -68,51 +70,22 @@ public class AddMovieList2<RecyclerAdapter> extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);
 
 
-        MovieListRecyclerViewAdapter adapter = new MovieListRecyclerViewAdapter(this, movieLists);
+       MovieListRecyclerViewAdapter adapter = new MovieListRecyclerViewAdapter(this, movieLists);
+
 
         recyclerView.setHasFixedSize(true);
 
         recyclerView.setAdapter((RecyclerView.Adapter) adapter);
 
 
+        //System.out.println("Grösse der movielist " + movieLists.size());
 
-
-
-        /**final RecyclerView rvMovieLists = findViewById(R.id.rvMovieLists);
-        rvMovieLists.setHasFixedSize(true);
-        rvMovieLists.setLayoutManager(new LinearLayoutManager(this));
-
-        MovieListArrayAdapter itemArrayAdapter = new MovieListArrayAdapter(this, movieLists);
-        rvMovieLists.setAdapter(itemArrayAdapter);**/
-
-        System.out.println("Grösse der movielist " + movieLists.size());
-
-        System.out.println(movieLists.get(1).getName());
+        //System.out.println(movieLists.get(1).getName());
 
 
     }
 
-    /**protected View onCreate(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        this.rootView = inflater.inflate(R.layout.fragment_movielists, container, false);
-        this.movieListDb = new MovieListDb();
 
-        final TextView txTitle = findViewById(R.id.txTitle);
-        txTitle.setText("Add Movie to List");
-
-        List<MovieList> movieLists = this.movieListDb.getAll();
-
-        final RecyclerView lvMovieLists = this.rootView.findViewById(R.id.rvMovieLists);
-        lvMovieLists.setHasFixedSize(true);
-        lvMovieLists.setLayoutManager(new LinearLayoutManager(this));
-
-        MovieListArrayAdapter itemArrayAdapter = new MovieListArrayAdapter(this,movieLists);
-        lvMovieLists.setAdapter(itemArrayAdapter);
-
-
-        this.refreshFields();
-
-        return this.rootView;
-    }**/
 
 
 

@@ -8,12 +8,11 @@
     tools:context=".ui.MovieDetailActivity">
 
 
-     <TextView
-         android:id="@+id/txTitle"
-         android:layout_width="match_parent"
-         android:layout_height="33dp"
-         android:text="TextView" />
-
+    <TextView
+        android:id="@+id/txTitleList"
+        android:layout_width="match_parent"
+        android:layout_height="33dp"
+        android:text="TextView" />
 
 
     <ImageView
@@ -28,42 +27,24 @@
         android:layout_height="wrap_content"
         android:text="TextView" />
 
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="5dp" />
+
     <TextView
         android:id="@+id/txRelease"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="TextView" />
 
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="5dp" />
+
     <TextView
         android:id="@+id/txLink"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="TextView" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal">
-
-        <Button
-            android:id="@+id/btnAddList"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Add List"
-            />
-
-
-        <Space
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1" />
-
-        <Button
-            android:id="@+id/btnShare"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Share"
-            />
-    </LinearLayout>
 
 </LinearLayout>

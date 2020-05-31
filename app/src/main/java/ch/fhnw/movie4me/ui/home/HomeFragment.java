@@ -48,7 +48,7 @@ public class HomeFragment extends Fragment implements OnMovieClickListener, OnMo
         actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(false);
 
-        lvMovies = root.findViewById(R.id.rvMovies);
+        lvMovies = root.findViewById(R.id.rvMovielists);
         lvMovies.setHasFixedSize(true);
         lvMovies.setLayoutManager(new LinearLayoutManager(this.getActivity()));
 
