@@ -21,6 +21,7 @@ public class MovieListRecyclerViewAdapter extends RecyclerView.Adapter<MovieList
 
     private Context context;
     private List<MovieList> movieLists;
+
     private OnMovieListClickListener onMovieListClickListener;
     private OnMovieListLongClickListener onMovieListLongClickListener;
 
@@ -32,6 +33,14 @@ public class MovieListRecyclerViewAdapter extends RecyclerView.Adapter<MovieList
     }
 
 
+    public void setOnMovieListClickListener(OnMovieListClickListener onMovieListClickListener) {
+        this.onMovieListClickListener = onMovieListClickListener;
+    }
+
+    public void setOnMovieListLongClickListener(OnMovieListLongClickListener onMovieListLongClickListener) {
+        this.onMovieListLongClickListener = onMovieListLongClickListener;
+    }
+
     @NonNull
     @Override
     public MovieListViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -40,6 +49,7 @@ public class MovieListRecyclerViewAdapter extends RecyclerView.Adapter<MovieList
 
         MovieListViewHolder viewHolder = new MovieListViewHolder(view);
         viewHolder.setOnItemClickListener(this);
+        viewHolder.setOnItemLongClickListener(this);
         return viewHolder;
     }
 

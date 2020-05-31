@@ -78,7 +78,7 @@ public class HomeFragment extends Fragment implements OnMovieClickListener, OnMo
     @Override
     public void onMovieLongClickListener(Movie movie) {
         //TEMP EXAMPLE
-        Toast.makeText(getContext(), "Long click.", Toast.LENGTH_LONG).show();
+        Toast.makeText(getContext(), "Movie " + movie.getTitle() + " long clicked.", Toast.LENGTH_LONG).show();
     }
 
     @Override

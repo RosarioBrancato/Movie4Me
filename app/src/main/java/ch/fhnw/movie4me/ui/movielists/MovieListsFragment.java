@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -27,7 +28,7 @@ import ch.fhnw.movie4me.ui.MovieListEditActivity;
 public class MovieListsFragment extends Fragment implements OnMovieListClickListener, OnMovieListLongClickListener {
 
     private View rootView;
-
+    private RecyclerView lvMovieLists;
     private MovieListDb movieListDb;
     private FloatingActionButton floatingActionButton;
 
@@ -35,6 +36,9 @@ public class MovieListsFragment extends Fragment implements OnMovieListClickList
         this.rootView = inflater.inflate(R.layout.fragment_movielists, container, false);
         this.movieListDb = new MovieListDb();
 
+        lvMovieLists = this.rootView.findViewById(R.id.rvMovieLists);
+        lvMovieLists.setHasFixedSize(true);
+        lvMovieLists.setLayoutManager(new LinearLayoutManager(this.getActivity()));
         this.refreshFields();
 
         floatingActionButton = this.rootView.findViewById(R.id.floatingActionButtonAdd);
@@ -58,12 +62,10 @@ public class MovieListsFragment extends Fragment implements OnMovieListClickList
     private void refreshFields() {
         List<MovieList> movieLists = this.movieListDb.getAll();
 
-        final RecyclerView lvMovieLists = this.rootView.findViewById(R.id.rvMovieLists);
-        lvMovieLists.setHasFixedSize(true);
-        lvMovieLists.setLayoutManager(new LinearLayoutManager(this.getActivity()));
-
-        MovieListRecyclerViewAdapter itemArrayAdapter = new MovieListRecyclerViewAdapter(this.getContext(), movieLists);
-        lvMovieLists.setAdapter(itemArrayAdapter);
+        MovieListRecyclerViewAdapter adapter = new MovieListRecyclerViewAdapter(this.getContext(), movieLists);
+        adapter.setOnMovieListClickListener(this);
+        adapter.setOnMovieListLongClickListener(this);
+        lvMovieLists.setAdapter(adapter);
     }
 
     public void openListEditActivity() {
@@ -83,6 +85,7 @@ public class MovieListsFragment extends Fragment implements OnMovieListClickList
 
     @Override
     public void onMovieListLongClickListener(MovieList movieList) {
-
+        //TEMP EXAMPLE
+        Toast.makeText(getContext(), "Movie list " + movieList.getName() + " long clicked.", Toast.LENGTH_LONG).show();
     }
 }

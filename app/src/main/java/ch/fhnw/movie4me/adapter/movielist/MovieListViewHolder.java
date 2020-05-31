@@ -23,6 +23,7 @@ public class MovieListViewHolder extends RecyclerView.ViewHolder implements View
         tvDescription = itemView.findViewById(R.id.tvDescription);
 
         itemView.setOnClickListener(this);
+        itemView.setOnLongClickListener(this);
     }
 
     public TextView getTvName() {
