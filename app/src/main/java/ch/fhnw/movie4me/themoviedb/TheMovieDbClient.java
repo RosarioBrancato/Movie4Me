@@ -15,6 +15,7 @@ import ch.fhnw.movie4me.dto.Page;
 import ch.fhnw.movie4me.dto.Review;
 import ch.fhnw.movie4me.dto.Video;
 import ch.fhnw.movie4me.dto.VideoSearch;
+import ch.fhnw.movie4me.util.ThreadUtils;
 import retrofit2.Call;
 import retrofit2.Response;
 import retrofit2.Retrofit;
@@ -165,7 +166,7 @@ public class TheMovieDbClient {
         T retVal = null;
         final Response<T>[] response = new Response[1];
 
-        Thread thread = new Thread(() -> {
+        ThreadUtils.runAsync(() -> {
             try {
                 response[0] = call.execute();
 
@@ -173,14 +174,6 @@ public class TheMovieDbClient {
                 Log.e(TAG, e.getMessage(), e);
             }
         });
-
-        thread.start();
-
-        try {
-            thread.join();
-        } catch (InterruptedException e) {
-            Log.e(TAG, e.getMessage(), e);
-        }
 
         if (response[0] != null) {
             if (response[0].isSuccessful()) {

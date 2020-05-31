@@ -1,6 +1,5 @@
 package ch.fhnw.movie4me.util;
 
-import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Log;
@@ -14,26 +13,22 @@ public class ImageUtils {
     public static Bitmap getBitmapFromUrl(String url) {
         Bitmap bitmap = null;
 
-        if(url != null && url.length() > 0) {
+        if (url != null && url.length() > 0) {
             final Bitmap[] bmp = new Bitmap[1];
 
-            Thread thread = new Thread(() -> {
-                try {
-                    InputStream in = new URL(url).openStream();
-                    bmp[0] = BitmapFactory.decodeStream(in);
+            ThreadUtils.runAsync(() -> {
+                InputStream in = null;
 
+                try {
+                    in = new URL(url).openStream();
                 } catch (IOException e) {
                     Log.e(ImageUtils.class.getName(), e.getMessage(), e);
                 }
+
+                if (in != null) {
+                    bmp[0] = BitmapFactory.decodeStream(in);
+                }
             });
-
-            thread.start();
-
-            try {
-                thread.join();
-            } catch (InterruptedException e) {
-                Log.e(ImageUtils.class.getName(), e.getMessage(), e);
-            }
 
             bitmap = bmp[0];
         }
