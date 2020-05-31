@@ -1,9 +1,11 @@
 package ch.fhnw.movie4me.dto;
 
 import android.annotation.SuppressLint;
+import android.util.Log;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -25,7 +27,7 @@ public class Movie {
     private boolean adult;
 
     @SerializedName("release_date")
-    private Date releaseDate;
+    private String releaseDate;
 
     @SerializedName("poster_path")
     private String posterPath;
@@ -44,16 +46,32 @@ public class Movie {
         return url;
     }
 
-    public Date getReleaseDate() {
+    public String getReleaseDate() {
         return releaseDate;
     }
 
     @SuppressLint("SimpleDateFormat")
     public String getReleaseDateFormatted() {
-        return new SimpleDateFormat("dd.MM.yyyy").format(this.getReleaseDate());
+        Date date = null;
+        String releaseDate = this.getReleaseDate();
+        String dateFormatted = null;
+
+        if (releaseDate != null && releaseDate.length() > 0) {
+            try {
+                date = new SimpleDateFormat("yyyy-MM-dd").parse(this.getReleaseDate());
+            } catch (ParseException e) {
+                Log.e(this.getClass().getName(), e.getMessage(), e);
+            }
+        }
+
+        if (date != null) {
+            dateFormatted = new SimpleDateFormat("dd.MM.yyyy").format(date);
+        }
+
+        return dateFormatted;
     }
 
-    public void setReleaseDate(Date releaseDate) {
+    public void setReleaseDate(String releaseDate) {
         this.releaseDate = releaseDate;
     }
 
