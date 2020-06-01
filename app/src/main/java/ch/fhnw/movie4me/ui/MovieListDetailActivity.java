@@ -85,7 +85,7 @@ public class MovieListDetailActivity extends AppCompatActivity implements OnMovi
 
     private void refreshData(long movieListId) {
         this.movieList = this.movieListDb.get(movieListId);
-        actionBar.setTitle("My List: " + this.movieList.getName());
+        actionBar.setTitle(this.movieList.getName());
         this.movieListDetails = this.movieListDetailDb.getByMovieListId(movieListId);
 
         this.movies.clear();
@@ -118,7 +118,7 @@ public class MovieListDetailActivity extends AppCompatActivity implements OnMovi
                 openListEditActivity();
                 break;
             case R.id.miRemoveMovies:
-                Toast.makeText(this, "To remove movies from the list LongPress on them.", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, "Long press on a movie to remove it.", Toast.LENGTH_LONG).show();
                 // allow deletion with onMovieLongClickListener ?
                 // resetAdapter(movies);
                 break;
