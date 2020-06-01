@@ -62,25 +62,26 @@ public class MovieDetailActivity extends AppCompatActivity {
             List<Cast> lsreview = this.client.getMovieCast(movieId);
 
             video = this.client.getMovieVideos(movieId);
-            strVideo = video.get(0).getKey();
+            if(video.size() > 0) {
+                strVideo = video.get(0).getKey();
 
 
+                for (int i = 0; i < lsreview.size(); i++) {
+                    System.out.println("Review: " + lsreview.get(i).getName());
+                }
+                /**System.out.println("YT:" + strVideo);
 
-            for(int i = 0; i < lsreview.size(); i++){
-            System.out.println("Review: " + lsreview.get(i).getName());
-            }
-            /**System.out.println("YT:" + strVideo);
-
-            System.out.println(video.get(0).getSite().equals("YouTube"));
-            System.out.println(video.get(0).getSite());
-            String testing = "YouTube";
-            String type = video.get(0).getType();
-            System.out.println(testing);**/
-            if(video.get(0).getSite().equals("YouTube")){
-                strVideo = "https://www.youtube.com/watch?v=" + strVideo;
-                System.out.println(strVideo);
-            }else{
-                strVideo = "no trailer available";
+                 System.out.println(video.get(0).getSite().equals("YouTube"));
+                 System.out.println(video.get(0).getSite());
+                 String testing = "YouTube";
+                 String type = video.get(0).getType();
+                 System.out.println(testing);**/
+                if (video.get(0).getSite().equals("YouTube")) {
+                    strVideo = "https://www.youtube.com/watch?v=" + strVideo;
+                    System.out.println(strVideo);
+                } else {
+                    strVideo = "no trailer available";
+                }
             }
 
 
