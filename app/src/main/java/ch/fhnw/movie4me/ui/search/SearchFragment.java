@@ -3,9 +3,6 @@ package ch.fhnw.movie4me.ui.search;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -85,7 +82,7 @@ public class SearchFragment extends Fragment implements OnMovieClickListener, On
         if (movieName.length() > 0) {
 
             // List<Movie> searchResults = this.theMovieDbClient.searchMovie(movieName);
-            Toast.makeText(this.getContext(), movieName, Toast.LENGTH_LONG).show();
+            // Toast.makeText(this.getContext(), movieName, Toast.LENGTH_LONG).show();
 
             refreshFields(movieName);
 
@@ -117,7 +114,6 @@ public class SearchFragment extends Fragment implements OnMovieClickListener, On
             textView.setText("I have found no movies containing " + movieName + " in the title.");
         }
     }
-
     @Override
     public void onMovieClickListener(Movie movie) {
         if (movie != null) {
@@ -132,5 +128,4 @@ public class SearchFragment extends Fragment implements OnMovieClickListener, On
         //TEMP EXAMPLE
         Toast.makeText(getContext(), "Long click.", Toast.LENGTH_LONG).show();
     }
-
 }

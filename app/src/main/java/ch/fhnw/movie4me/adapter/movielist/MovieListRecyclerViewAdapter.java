@@ -75,7 +75,7 @@ public class MovieListRecyclerViewAdapter extends RecyclerView.Adapter<MovieList
 
     @Override
     public void onItemLongClickListener(int position) {
-        if (this.onMovieListLongClickListener != null) {
+        if(this.onMovieListLongClickListener != null) {
             MovieList movieList = this.movieLists.get(position);
             this.onMovieListLongClickListener.onMovieListLongClickListener(movieList);
         }
