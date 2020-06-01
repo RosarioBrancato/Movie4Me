@@ -18,7 +18,6 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.zip.Inflater;
 
 import ch.fhnw.movie4me.R;
 import ch.fhnw.movie4me.adapter.movie.MovieRecyclerViewAdapter;
@@ -45,7 +44,6 @@ public class MovieListDetailActivity extends AppCompatActivity implements OnMovi
     private List<Movie> movies;
     private ActionBar actionBar;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,9 +62,6 @@ public class MovieListDetailActivity extends AppCompatActivity implements OnMovi
 
             long movieListId = intent.getLongExtra(EXTRA_MOVIE_LIST_ID, -1);
             refreshData(movieListId);
-
-            //final TextView textListDescription = findViewById(R.id.txMovieListDescription);
-           // textListDescription.setText(this.movieList.getDescription());
         }
 
     }
@@ -103,11 +98,6 @@ public class MovieListDetailActivity extends AppCompatActivity implements OnMovi
         }
 
         resetAdapter(this.movies);
-    }
-
-    public void click() {
-        Intent intent = new Intent(this, MovieListEditActivity.class);
-        startActivity(intent);
     }
 
 
@@ -167,4 +157,5 @@ public class MovieListDetailActivity extends AppCompatActivity implements OnMovi
         intent.putExtra(EXTRA_MOVIE_LIST_ID, (int) movieList.getId());
         startActivity(intent);
     }
+	
 }
