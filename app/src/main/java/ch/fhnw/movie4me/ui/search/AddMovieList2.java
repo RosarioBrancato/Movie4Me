@@ -15,10 +15,12 @@ import java.util.List;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import ch.fhnw.movie4me.R;
 import ch.fhnw.movie4me.adapter.movielist.MovieListRecyclerViewAdapter;
 import ch.fhnw.movie4me.adapter.movielist.MovieListViewHolder;
+import ch.fhnw.movie4me.adapter.movielist.OnMovieListClickListener;
 import ch.fhnw.movie4me.db.MovieListDb;
 import ch.fhnw.movie4me.db.MovieListDetailDb;
 import ch.fhnw.movie4me.dto.Movie;
@@ -26,82 +28,68 @@ import ch.fhnw.movie4me.dto.MovieList;
 import ch.fhnw.movie4me.dto.MovieListDetail;
 import ch.fhnw.movie4me.themoviedb.TheMovieDbClient;
 
-public class AddMovieList2<RecyclerAdapter> extends AppCompatActivity {
+public class AddMovieList2<RecyclerAdapter> extends AppCompatActivity implements OnMovieListClickListener {
 
-    private TheMovieDbClient client;
+    public static final String MOVIE_ID = "ch.fhnw.movie4me.ui.search.AddMovieList2.MOVIE_ID";
+
     private Movie movie;
 
     private TheMovieDbClient theMovieDbClient;
     private MovieListDb movieListDb;
     private MovieListDetailDb movieListDetailDb;
 
-    private MovieList movieList;
     private List<MovieList> movieLists;
-    private List<MovieListDetail> movieListDetails;
-    private List<Movie> movies;
-    public static final String EXTRA_MOVIE_LIST_ID = "ch.fhnw.movie4me.ui.MOVIE_LIST_ID";
-
     private RecyclerView recyclerView;
-    private RecyclerView.LayoutManager layoutManager;
-    private RecyclerAdapter adapter;
-
-
-    private View rootView;
 
 
     protected void onCreate(Bundle savedInstanceState) {
-            super.onCreate(savedInstanceState);
-            setContentView(R.layout.activity_add_movie_list2);
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_add_movie_list2);
 
 
-        //final TextView txTitle = findViewById(R.id.txTitle);
-        //txTitle.setText(this.movie.getTitle());
+        Intent intent = getIntent();
+        if (intent != null && intent.hasExtra(MOVIE_ID)) {
 
-        final TextView txTitleList = findViewById(R.id.txTitleList);
-        txTitleList.setText("Available Lists");
+            this.theMovieDbClient = TheMovieDbClient.getInstance();
+            this.movieListDb = new MovieListDb();
+            this.movieListDetailDb = new MovieListDetailDb();
 
-        this.movieListDb = new MovieListDb();
+            movieLists = movieListDb.getAll();
 
+            int movieId = intent.getIntExtra(MOVIE_ID, -1);
+            this.movie = this.theMovieDbClient.getMovie(movieId);
 
-        movieLists = movieListDb.getAll();
+            final TextView txTitleList = findViewById(R.id.txTitleList);
+            txTitleList.setText("Available Lists");
 
-        recyclerView = findViewById(R.id.rvMovielists);
-        layoutManager = new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(layoutManager);
-
-
-       MovieListRecyclerViewAdapter adapter = new MovieListRecyclerViewAdapter(this, movieLists);
-
-
-        recyclerView.setHasFixedSize(true);
-
-        recyclerView.setAdapter((RecyclerView.Adapter) adapter);
+            recyclerView = findViewById(R.id.rvMovielists);
+            RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
+            recyclerView.setLayoutManager(layoutManager);
 
 
-        //System.out.println("Grösse der movielist " + movieLists.size());
+            MovieListRecyclerViewAdapter adapter = new MovieListRecyclerViewAdapter(this, movieLists);
+            adapter.setOnMovieListClickListener(this);
+            recyclerView.setHasFixedSize(true);
+            recyclerView.setAdapter(adapter);
 
-        //System.out.println(movieLists.get(1).getName());
-
-
+        } else {
+            finish();
+        }
     }
 
+    @Override
+    public void onMovieListClickListener(MovieList movieList) {
+        if (movie != null) {
+            MovieListDetail detail = new MovieListDetail();
+            detail.setMovieId(this.movie.getId());
+            detail.setMovieListId(movieList.getId());
+            this.movieListDetailDb.save(detail);
 
+            Toast.makeText(this, "Added to list", Toast.LENGTH_LONG).show();
 
-
-
-    private void refreshFields() {
-        List<MovieList> movieLists = this.movieListDb.getAll();
-
-        final RecyclerView lvMovieLists = this.rootView.findViewById(R.id.rvMovieLists);
-        lvMovieLists.setHasFixedSize(true);
-        lvMovieLists.setLayoutManager(new LinearLayoutManager(this));
-
-        MovieListRecyclerViewAdapter itemArrayAdapter = new MovieListRecyclerViewAdapter(this,movieLists);
-        lvMovieLists.setAdapter(itemArrayAdapter);
+            finish();
+        }
     }
-
-
-
 }
 
 

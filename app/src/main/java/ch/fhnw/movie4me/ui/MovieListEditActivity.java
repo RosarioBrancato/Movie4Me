@@ -1,9 +1,14 @@
 package ch.fhnw.movie4me.ui;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.util.AttributeSet;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -51,10 +56,10 @@ public class MovieListEditActivity extends AppCompatActivity {
             // Toast.makeText(this, "have id", Toast.LENGTH_LONG).show();
 
         } else {
-            //  Toast.makeText(this, "no id", Toast.LENGTH_LONG).show();
-            editText1 = findViewById(R.id.nameInput);
-            //this.editText1.setText("test");
             this.movieList = new MovieList();
+
+            editText1 = findViewById(R.id.nameInput);
+            editText2 = findViewById((R.id.descriptionInput));
         }
 
         buttonSave = findViewById(R.id.buttonSaveList);
@@ -68,21 +73,32 @@ public class MovieListEditActivity extends AppCompatActivity {
 
     public void addList() {
         //editText1 = findViewById(R.id.nameInput);
-        String newListName = editText1.getText().toString();
+        Editable editableName = editText2.getText();
+        if (editableName != null) {
 
-        if (newListName.length() > 0) {
-            //editText2 = findViewById(R.id.descriptionInput);
+            String newListName = editableName.toString();
 
-            String newListDescription = editText2.getText().toString();
+            if (newListName.length() > 0) {
+                //editText2 = findViewById(R.id.descriptionInput);
 
-            movieList.setName(newListName);
-            movieList.setDescription(newListDescription);
+                String newListDescription = null;
+                Editable editable = editText2.getText();
+                if (editable != null) {
+                    newListDescription = editable.toString();
+                }
 
-            boolean success = this.movieListDb.save(movieList);
-            if (success) {
-                finish();
+                movieList.setName(newListName);
+                movieList.setDescription(newListDescription);
+
+                boolean success = this.movieListDb.save(movieList);
+                if (success) {
+                    finish();
+                } else {
+                    Toast.makeText(this.getApplicationContext(), "Saving failed.", Toast.LENGTH_LONG).show();
+                }
+
             } else {
-                Toast.makeText(this.getApplicationContext(), "Saving failed.", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, "Please give the list a name.", Toast.LENGTH_LONG).show();
             }
 
         } else {

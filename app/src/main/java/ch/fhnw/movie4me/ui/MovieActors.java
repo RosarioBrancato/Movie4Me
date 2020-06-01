@@ -21,6 +21,7 @@ public class MovieActors extends AppCompatActivity {
     private MovieListDb movieListDb;
     private List<String> lsActors;
     private int movieId;
+    private String strAllActors = "";
 
 
     @Override
@@ -37,12 +38,28 @@ public class MovieActors extends AppCompatActivity {
 
         List<Cast> lsreview = this.client.getMovieCast(movieId);
 
-        for(int i = 0; i < lsreview.size(); i++){
-            System.out.println("Review: " + lsreview.get(i).getName());
+
+
+        if(lsreview == null) {
+            System.out.println("No Cast - Array null");
+            System.out.println(movieId);
+            strAllActors = "No Actors found for this movie";
+        }else{
+
+            for (int i = 0; i < lsreview.size(); i++) {
+                System.out.println("Review: " + lsreview.get(i).getName());
+                strAllActors = strAllActors + lsreview.get(i).getName() + "\n";
+            }
         }
 
-        final TextView txTitle = findViewById(R.id.txTitleList);
+
+
+        final TextView txTitle = findViewById(R.id.txTitleActors);
         txTitle.setText("Actors in this movie");
+
+        final TextView txAllActors = findViewById(R.id.txAllActors);
+        txAllActors.setText(strAllActors);
+
 
 
 

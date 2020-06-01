@@ -158,6 +158,7 @@ public class MovieDetailActivity extends AppCompatActivity {
 
     public void openAddList() {
         Intent intent = new Intent(MovieDetailActivity.this, AddMovieList2.class);
+        intent.putExtra(AddMovieList2.MOVIE_ID, this.movie.getId());
         startActivity(intent);
     }
 

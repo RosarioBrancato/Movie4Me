@@ -21,7 +21,6 @@ public class MovieListRecyclerViewAdapter extends RecyclerView.Adapter<MovieList
 
     private Context context;
     private List<MovieList> movieLists;
-
     private OnMovieListClickListener onMovieListClickListener;
     private OnMovieListLongClickListener onMovieListLongClickListener;
 
@@ -68,12 +67,10 @@ public class MovieListRecyclerViewAdapter extends RecyclerView.Adapter<MovieList
 
     @Override
     public void onItemClickListener(int position) {
-        Intent intent = new Intent(this.context, MovieListDetailActivity.class);
-
-        MovieList movieList = movieLists.get(position);
-        intent.putExtra(MovieListDetailActivity.EXTRA_MOVIE_LIST_ID, movieList.getId());
-
-        this.context.startActivity(intent);
+        if (this.onMovieListClickListener != null) {
+            MovieList movieList = this.movieLists.get(position);
+            this.onMovieListClickListener.onMovieListClickListener(movieList);
+        }
     }
 
     @Override
