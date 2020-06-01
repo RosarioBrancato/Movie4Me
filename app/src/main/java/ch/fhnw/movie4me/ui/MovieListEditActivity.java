@@ -21,6 +21,9 @@ public class MovieListEditActivity extends AppCompatActivity {
     private MovieListDb movieListDb;
     private MovieList movieList;
     private Button buttonSave;
+    private TextView textView;
+    private EditText editText1;
+    private EditText editText2;
 
     public static final String EXTRA_MOVIE_LIST_ID = "ch.fhnw.movie4me.ui.MOVIE_LIST_ID";
 
@@ -36,7 +39,21 @@ public class MovieListEditActivity extends AppCompatActivity {
             // Get data
             int movieListId = intent.getIntExtra(EXTRA_MOVIE_LIST_ID, -1);
             this.movieList = this.movieListDb.get(movieListId);
+
+            textView = findViewById(R.id.titleNewList);
+            editText1 = findViewById(R.id.nameInput);
+            editText2 = findViewById(R.id.descriptionInput);
+
+            textView.setText("Edit List");
+            editText1.setText(this.movieList.getName());
+            editText2.setText(this.movieList.getDescription());
+
+            // Toast.makeText(this, "have id", Toast.LENGTH_LONG).show();
+
         } else {
+            //  Toast.makeText(this, "no id", Toast.LENGTH_LONG).show();
+            editText1 = findViewById(R.id.nameInput);
+            //this.editText1.setText("test");
             this.movieList = new MovieList();
         }
 
@@ -50,11 +67,11 @@ public class MovieListEditActivity extends AppCompatActivity {
     }
 
     public void addList() {
-        EditText editText1 = findViewById(R.id.nameInput);
+        //editText1 = findViewById(R.id.nameInput);
         String newListName = editText1.getText().toString();
 
         if (newListName.length() > 0) {
-            EditText editText2 = findViewById(R.id.descriptionInput);
+            //editText2 = findViewById(R.id.descriptionInput);
 
             String newListDescription = editText2.getText().toString();
 

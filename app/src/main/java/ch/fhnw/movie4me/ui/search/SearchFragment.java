@@ -85,7 +85,7 @@ public class SearchFragment extends Fragment implements OnMovieClickListener, On
         if (movieName.length() > 0) {
 
             // List<Movie> searchResults = this.theMovieDbClient.searchMovie(movieName);
-            Toast.makeText(this.getContext(), movieName, Toast.LENGTH_LONG).show();
+            // Toast.makeText(this.getContext(), movieName, Toast.LENGTH_LONG).show();
 
             refreshFields(movieName);
 

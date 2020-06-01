@@ -43,9 +43,8 @@ public class MovieListDetailActivity extends AppCompatActivity implements OnMovi
     private MovieList movieList;
     private List<MovieListDetail> movieListDetails;
     private List<Movie> movies;
+    private ActionBar actionBar;
 
-    // private Button btnEditList;
-    // private Button btnDeleteMovies;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,37 +59,14 @@ public class MovieListDetailActivity extends AppCompatActivity implements OnMovi
         Intent intent = getIntent();
         // Check if Intent is not empty and has data
         if (intent != null && intent.hasExtra(EXTRA_MOVIE_LIST_ID)) {
-            // Get data
-            Toast.makeText(this, "i has id.", Toast.LENGTH_LONG).show();
-            int movieListId = intent.getIntExtra(EXTRA_MOVIE_LIST_ID, 4);
-            this.movieList = this.movieListDb.get(movieListId);
-            this.movieListDetails = this.movieListDetailDb.getByMovieListId(movieListId);
-
-            for (MovieListDetail detail : this.movieListDetails) {
-                Movie movie = this.theMovieDbClient.getMovie((int) detail.getMovieId());
-                this.movies.add(movie);
-            }
-
-            final TextView textListDescription = findViewById(R.id.txMovieListDescription);
-            textListDescription.setText(this.movieList.getDescription());
-
-            RecyclerView lvMoviesList = findViewById(R.id.rvMovieListDetail);
-            lvMoviesList.setHasFixedSize(true);
-            lvMoviesList.setLayoutManager(new LinearLayoutManager(this));
-
-            ActionBar actionBar = getSupportActionBar();
-            actionBar.setTitle("My List: " + this.movieList.getName());
+            actionBar = getSupportActionBar();
             actionBar.setDisplayHomeAsUpEnabled(false);
 
-            //List<Movie> movies = this.movieListDetailDb.getByMovieListId(movieListId);
-            // moved to resetAdapter (remove)
-            // MovieRecyclerViewAdapter itemArrayAdapter = new MovieRecyclerViewAdapter(this, movies);
-            // itemArrayAdapter.setOnMovieClickListener(this);
-            // itemArrayAdapter.setOnMovieLongClickListener(this);
-            // lvMoviesList.setAdapter(itemArrayAdapter);
-            resetAdapter(movies);
+            long movieListId = intent.getLongExtra(EXTRA_MOVIE_LIST_ID, -1);
+            refreshData(movieListId);
 
-
+            //final TextView textListDescription = findViewById(R.id.txMovieListDescription);
+           // textListDescription.setText(this.movieList.getDescription());
         }
 
     }
@@ -103,6 +79,30 @@ public class MovieListDetailActivity extends AppCompatActivity implements OnMovi
         itemArrayAdapter.setOnMovieClickListener(this);
         itemArrayAdapter.setOnMovieLongClickListener(this);
         lvMoviesList.setAdapter(itemArrayAdapter);
+        TextView textListDescription = findViewById(R.id.txMovieListDescription);
+        textListDescription.setText(this.movieList.getDescription());
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        this.refreshData(this.movieList.getId());
+    }
+
+
+    private void refreshData(long movieListId) {
+        this.movieList = this.movieListDb.get(movieListId);
+        actionBar.setTitle("My List: " + this.movieList.getName());
+        this.movieListDetails = this.movieListDetailDb.getByMovieListId(movieListId);
+
+        this.movies.clear();
+        for (MovieListDetail detail : this.movieListDetails) {
+            Movie movie = this.theMovieDbClient.getMovie((int) detail.getMovieId());
+            this.movies.add(movie);
+        }
+
+        resetAdapter(this.movies);
     }
 
     public void click() {
@@ -128,8 +128,7 @@ public class MovieListDetailActivity extends AppCompatActivity implements OnMovi
                 //this.movieListDb.delete();
                 break;
             case R.id.miEditList:
-                Toast.makeText(this, "Edit List.", Toast.LENGTH_LONG).show();
-                //start MovieListEditActivity
+                openListEditActivity();
                 break;
             case R.id.miRemoveMovies:
                 Toast.makeText(this, "To remove movies from the list LongPress on them.", Toast.LENGTH_LONG).show();
@@ -160,5 +159,12 @@ public class MovieListDetailActivity extends AppCompatActivity implements OnMovi
         // if RemoveMovies has been activated (set variable?)
         // delete this movie from the list
         Toast.makeText(this, "Long click.", Toast.LENGTH_LONG).show();
+    }
+
+    public void openListEditActivity() {
+        Intent intent = new Intent(this, MovieListEditActivity.class);
+        //intent.putExtra(EXTRA_MOVIE_LIST_ID, 4);
+        intent.putExtra(EXTRA_MOVIE_LIST_ID, (int) movieList.getId());
+        startActivity(intent);
     }
 }
