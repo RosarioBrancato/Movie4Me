@@ -14,3 +14,4 @@
 .cxx
 app/src/main/res/raw/config.properties
 app/src/test/resources/config-test.properties
+.idea/codeStyles/Project.xml
