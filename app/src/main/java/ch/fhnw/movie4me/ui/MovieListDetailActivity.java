@@ -11,8 +11,6 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,7 +21,6 @@ import ch.fhnw.movie4me.R;
 import ch.fhnw.movie4me.adapter.movie.MovieRecyclerViewAdapter;
 import ch.fhnw.movie4me.adapter.movie.OnMovieClickListener;
 import ch.fhnw.movie4me.adapter.movie.OnMovieLongClickListener;
-import ch.fhnw.movie4me.adapter.movielist.OnMovieListClickListener;
 import ch.fhnw.movie4me.db.MovieListDb;
 import ch.fhnw.movie4me.db.MovieListDetailDb;
 import ch.fhnw.movie4me.dto.Movie;
@@ -47,7 +44,7 @@ public class MovieListDetailActivity extends AppCompatActivity implements OnMovi
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.layout_movielist_detail);
+        setContentView(R.layout.activity_movielist_detail);
 
         this.theMovieDbClient = TheMovieDbClient.getInstance();
         this.movieListDb = new MovieListDb();

@@ -28,7 +28,7 @@ import ch.fhnw.movie4me.dto.Movie;
 import ch.fhnw.movie4me.themoviedb.TheMovieDbClient;
 import ch.fhnw.movie4me.ui.MovieDetailActivity;
 
-public class HomeFragment extends Fragment implements OnMovieClickListener, OnMovieLongClickListener {
+public class HomeFragment extends Fragment implements OnMovieClickListener {
 
     private ActionBar actionBar;
     private RecyclerView lvMovies;
@@ -63,7 +63,6 @@ public class HomeFragment extends Fragment implements OnMovieClickListener, OnMo
     private void resetAdapter(List<Movie> movies) {
         MovieRecyclerViewAdapter adapter = new MovieRecyclerViewAdapter(this.getContext(), movies);
         adapter.setOnMovieClickListener(this);
-        adapter.setOnMovieLongClickListener(this);
         lvMovies.setAdapter(adapter);
     }
 
@@ -74,12 +73,6 @@ public class HomeFragment extends Fragment implements OnMovieClickListener, OnMo
             intent.putExtra("MOVIE_ID", movie.getId());
             getContext().startActivity(intent);
         }
-    }
-
-    @Override
-    public void onMovieLongClickListener(Movie movie) {
-        //TEMP EXAMPLE
-        Toast.makeText(getContext(), "Movie " + movie.getTitle() + " long clicked.", Toast.LENGTH_LONG).show();
     }
 
     @Override

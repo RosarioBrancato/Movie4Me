@@ -9,17 +9,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import java.util.List;
 
 import ch.fhnw.movie4me.R;
-import ch.fhnw.movie4me.db.MovieListDb;
 import ch.fhnw.movie4me.dto.Cast;
 import ch.fhnw.movie4me.themoviedb.TheMovieDbClient;
 
-public class MovieActors extends AppCompatActivity {
+public class MovieActorsActivity extends AppCompatActivity {
 
 
-    public static final String EXTRA_MOVIE_LIST_ID = "ch.fhnw.movie4me.ui.MOVIE_LIST_ID";
+    public static final String EXTRA_MOVIE_ID = "ch.fhnw.movie4me.ui.MovieActorsActivity.MOVIE_ID";
     private TheMovieDbClient client;
-    private MovieListDb movieListDb;
-    private List<String> lsActors;
     private int movieId;
     private String strAllActors = "";
 
@@ -27,14 +24,13 @@ public class MovieActors extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.layout_movie_actors);
+        setContentView(R.layout.activity_movie_actors);
 
         this.client = TheMovieDbClient.getInstance();
-        this.movieListDb = new MovieListDb();
 
         Intent intent = getIntent();
 
-        movieId = intent.getIntExtra(EXTRA_MOVIE_LIST_ID, -1);
+        movieId = intent.getIntExtra(EXTRA_MOVIE_ID, -1);
 
         List<Cast> lsreview = this.client.getMovieCast(movieId);
 

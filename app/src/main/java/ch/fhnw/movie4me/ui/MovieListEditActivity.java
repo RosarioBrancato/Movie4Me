@@ -1,14 +1,10 @@
 package ch.fhnw.movie4me.ui;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
-import android.util.AttributeSet;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -17,9 +13,7 @@ import android.widget.Toast;
 
 import ch.fhnw.movie4me.R;
 import ch.fhnw.movie4me.db.MovieListDb;
-import ch.fhnw.movie4me.dto.Movie;
 import ch.fhnw.movie4me.dto.MovieList;
-import ch.fhnw.movie4me.ui.movielists.MovieListsFragment;
 
 public class MovieListEditActivity extends AppCompatActivity {
 
@@ -35,7 +29,7 @@ public class MovieListEditActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.layout_movielist_edit);
+        setContentView(R.layout.activity_movielist_edit);
 
         this.movieListDb = new MovieListDb();
 

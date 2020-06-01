@@ -1,25 +1,18 @@
-package ch.fhnw.movie4me.ui.search;
-
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
+package ch.fhnw.movie4me.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TextView;
-
-import java.util.Arrays;
-import java.util.List;
-
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import java.util.List;
 
 import ch.fhnw.movie4me.R;
 import ch.fhnw.movie4me.adapter.movielist.MovieListRecyclerViewAdapter;
-import ch.fhnw.movie4me.adapter.movielist.MovieListViewHolder;
 import ch.fhnw.movie4me.adapter.movielist.OnMovieListClickListener;
 import ch.fhnw.movie4me.db.MovieListDb;
 import ch.fhnw.movie4me.db.MovieListDetailDb;
@@ -28,9 +21,9 @@ import ch.fhnw.movie4me.dto.MovieList;
 import ch.fhnw.movie4me.dto.MovieListDetail;
 import ch.fhnw.movie4me.themoviedb.TheMovieDbClient;
 
-public class AddMovieList2<RecyclerAdapter> extends AppCompatActivity implements OnMovieListClickListener {
+public class AddMovieToListActivity extends AppCompatActivity implements OnMovieListClickListener {
 
-    public static final String MOVIE_ID = "ch.fhnw.movie4me.ui.search.AddMovieList2.MOVIE_ID";
+    public static final String MOVIE_ID = "ch.fhnw.movie4me.ui.AddMovieToListActivity.MOVIE_ID";
 
     private Movie movie;
 
@@ -44,7 +37,7 @@ public class AddMovieList2<RecyclerAdapter> extends AppCompatActivity implements
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_movie_list2);
+        setContentView(R.layout.activity_add_movie_to_list);
 
 
         Intent intent = getIntent();

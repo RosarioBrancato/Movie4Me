@@ -11,8 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.search.AddMovieList2"></activity>
-        <activity android:name=".ui.MovieActors"></activity>
+        <activity android:name=".ui.AddMovieToListActivity"></activity>
+        <activity android:name=".ui.MovieActorsActivity"></activity>
         <activity android:name=".ui.MovieListDetailActivity" />
         <activity android:name=".ui.MovieListEditActivity" />
         <activity android:name=".ui.MovieDetailActivity" />

@@ -7,12 +7,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -20,15 +17,11 @@ import android.widget.TextView;
 import java.util.List;
 
 import ch.fhnw.movie4me.R;
-import ch.fhnw.movie4me.adapter.movie.MovieRecyclerViewAdapter;
 import ch.fhnw.movie4me.dto.Cast;
 import ch.fhnw.movie4me.dto.Movie;
-import ch.fhnw.movie4me.dto.Review;
 import ch.fhnw.movie4me.dto.Video;
 import ch.fhnw.movie4me.themoviedb.TheMovieDbClient;
-import ch.fhnw.movie4me.ui.search.AddMovieList2;
 import ch.fhnw.movie4me.util.ImageUtils;
-import androidx.fragment.app.Fragment;
 
 public class MovieDetailActivity extends AppCompatActivity {
 
@@ -53,7 +46,7 @@ public class MovieDetailActivity extends AppCompatActivity {
         actionBar.setDisplayHomeAsUpEnabled(false);
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.layout_movie_detail);
+        setContentView(R.layout.activity_movie_detail);
 
         this.client = TheMovieDbClient.getInstance();
 
@@ -157,15 +150,15 @@ public class MovieDetailActivity extends AppCompatActivity {
 
 
     public void openAddList() {
-        Intent intent = new Intent(MovieDetailActivity.this, AddMovieList2.class);
-        intent.putExtra(AddMovieList2.MOVIE_ID, this.movie.getId());
+        Intent intent = new Intent(MovieDetailActivity.this, AddMovieToListActivity.class);
+        intent.putExtra(AddMovieToListActivity.MOVIE_ID, this.movie.getId());
         startActivity(intent);
     }
 
 
     public void openDetails() {
-        Intent intent = new Intent(MovieDetailActivity.this, MovieActors.class);
-        intent.putExtra(MovieDetailActivity.EXTRA_MOVIE_LIST_ID, movieId);
+        Intent intent = new Intent(MovieDetailActivity.this, MovieActorsActivity.class);
+        intent.putExtra(MovieActorsActivity.EXTRA_MOVIE_ID, movieId);
         startActivity(intent);
     }
 
@@ -173,7 +166,7 @@ public class MovieDetailActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_movie_detail, menu);
+        inflater.inflate(R.menu.movie_detail_menu, menu);
         return true;
     }
 
