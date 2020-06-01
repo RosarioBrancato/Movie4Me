@@ -67,7 +67,7 @@ public class MovieListEditActivity extends AppCompatActivity {
 
     public void addList() {
         //editText1 = findViewById(R.id.nameInput);
-        Editable editableName = editText2.getText();
+        Editable editableName = editText1.getText();
         if (editableName != null) {
 
             String newListName = editableName.toString();
@@ -76,9 +76,9 @@ public class MovieListEditActivity extends AppCompatActivity {
                 //editText2 = findViewById(R.id.descriptionInput);
 
                 String newListDescription = null;
-                Editable editable = editText2.getText();
-                if (editable != null) {
-                    newListDescription = editable.toString();
+                Editable editableDescr = editText2.getText();
+                if (editableDescr != null) {
+                    newListDescription = editableDescr.toString();
                 }
 
                 movieList.setName(newListName);
