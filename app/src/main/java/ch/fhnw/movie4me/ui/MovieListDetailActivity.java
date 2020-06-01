@@ -114,8 +114,8 @@ public class MovieListDetailActivity extends AppCompatActivity implements OnMovi
 
         switch (item.getItemId()) {
             case R.id.miDeleteList:
-                Toast.makeText(this, "Delete List.", Toast.LENGTH_LONG).show();
-                //this.movieListDb.delete();
+                this.movieListDb.delete(this.movieList.getId());
+                finish();
                 break;
             case R.id.miEditList:
                 openListEditActivity();
@@ -146,9 +146,21 @@ public class MovieListDetailActivity extends AppCompatActivity implements OnMovi
 
     @Override
     public void onMovieLongClickListener(Movie movie) {
-        // if RemoveMovies has been activated (set variable?)
-        // delete this movie from the list
-        Toast.makeText(this, "Long click.", Toast.LENGTH_LONG).show();
+        ArrayList<Long> idToDelete = new ArrayList<>();
+        for(MovieListDetail detail : this.movieListDetails) {
+            if(detail.getMovieId() == movie.getId()) {
+                idToDelete.add(detail.getId());
+            }
+        }
+
+        for(Long id : idToDelete) {
+            this.movieListDetailDb.delete(id);
+        }
+
+        if(idToDelete.size() > 0) {
+            Toast.makeText(this, "Movie " + movie.getTitle() + " removed", Toast.LENGTH_LONG).show();
+            this.refreshData(this.movieList.getId());
+        }
     }
 
     public void openListEditActivity() {
