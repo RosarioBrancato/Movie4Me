@@ -88,6 +88,9 @@ public class MovieListDb {
     public boolean delete(long id) {
         String idString = String.valueOf(id);
 
+        MovieListDetailDb detailDb = new MovieListDetailDb();
+        detailDb.deleteByMovieListId(id);
+
         SQLiteDatabase db = this.dbAccess.getWritableDatabase();
         long rows = db.delete(TABLE_NAME, "Id = ?", new String[]{idString});
 

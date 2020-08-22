@@ -106,11 +106,10 @@ public class MovieListDetailActivity extends AppCompatActivity implements OnMovi
 
         switch (item.getItemId()) {
             case R.id.miDeleteList:
-                this.movieListDb.delete(this.movieList.getId());
-                finish();
+                this.deleteMovieList();
                 break;
             case R.id.miEditList:
-                openListEditActivity();
+                this.openListEditActivity();
                 break;
         }
 
@@ -182,6 +181,23 @@ public class MovieListDetailActivity extends AppCompatActivity implements OnMovi
         Intent intent = new Intent(this, MovieListEditActivity.class);
         intent.putExtra(MovieListEditActivity.EXTRA_MOVIE_LIST_ID, (int) movieList.getId());
         startActivity(intent);
+    }
+
+    private void deleteMovieList() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("Delete current list?");
+
+        builder.setPositiveButton("Yes", (dialog, which) -> {
+            this.movieListDb.delete(this.movieList.getId());
+            finish();
+        });
+
+        builder.setNegativeButton("No", (dialog, which) -> {
+
+        });
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
 
 }

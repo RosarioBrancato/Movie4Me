@@ -114,6 +114,15 @@ public class MovieListDetailDb {
         return rows > 0;
     }
 
+    public boolean deleteByMovieListId(long movieListId) {
+        String movieListIdString = String.valueOf(movieListId);
+
+        SQLiteDatabase db = this.dbAccess.getWritableDatabase();
+        long rows = db.delete(TABLE_NAME, "MovieListId = ?", new String[]{movieListIdString});
+
+        return rows > 0;
+    }
+
     private boolean insert(MovieListDetail movieListDetail) {
         ContentValues values = new ContentValues();
         values.put(COL_MOVIE_LIST_ID, movieListDetail.getMovieListId());
