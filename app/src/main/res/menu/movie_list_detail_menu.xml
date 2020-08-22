@@ -7,7 +7,4 @@
     <item
         android:id="@+id/miDeleteList"
         android:title="Delete List" />
-    <item
-        android:id="@+id/miRemoveMovies"
-        android:title="Remove Movies" />
 </menu>

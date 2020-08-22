@@ -8,7 +8,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -21,7 +20,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 import ch.fhnw.movie4me.R;
-import ch.fhnw.movie4me.adapter.movie.OnMovieLongClickListener;
 import ch.fhnw.movie4me.adapter.movie.MovieRecyclerViewAdapter;
 import ch.fhnw.movie4me.adapter.movie.OnMovieClickListener;
 import ch.fhnw.movie4me.dto.Movie;
@@ -48,7 +46,7 @@ public class HomeFragment extends Fragment implements OnMovieClickListener {
         actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(false);
 
-        lvMovies = root.findViewById(R.id.rvMovielists);
+        lvMovies = root.findViewById(R.id.rvMovieLists);
         lvMovies.setHasFixedSize(true);
         lvMovies.setLayoutManager(new LinearLayoutManager(this.getActivity()));
 
