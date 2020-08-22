@@ -5,4 +5,5 @@
     <string name="movie_detail_release">Release</string>
     <string name="movie_detail_link">Link</string>
     <string name="movie_detail_movie_img">Poster</string>
+    <string name="movie_detail_video_title">Videos</string>
 </resources>

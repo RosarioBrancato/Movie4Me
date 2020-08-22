@@ -2,8 +2,8 @@ package ch.fhnw.movie4me.dto;
 
 public class Video {
 
-    public final String SITE_YOUTUBE = "Youtube";
-    public final String TYPE_TRAILER = "Trailer";
+    public final static String SITE_YOUTUBE = "YouTube";
+    public final static String TYPE_TRAILER = "Trailer";
 
 
     private String id;

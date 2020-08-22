@@ -70,7 +70,7 @@ public class HomeFragment extends Fragment implements OnMovieClickListener {
     public void onMovieClickListener(Movie movie) {
         if (movie != null) {
             Intent intent = new Intent(getContext(), MovieDetailActivity.class);
-            intent.putExtra("MOVIE_ID", movie.getId());
+            intent.putExtra(MovieDetailActivity.EXTRA_MOVIE_ID, movie.getId());
             getContext().startActivity(intent);
         }
     }
