@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="movie_detail_title">Title</string>
+    <string name="movie_detail_descr">Description</string>
+    <string name="movie_detail_release">Release</string>
+    <string name="movie_detail_link">Link</string>
+    <string name="movie_detail_movie_img">Poster</string>
+</resources>

@@ -52,7 +52,7 @@ public class AddMovieToListActivity extends AppCompatActivity implements OnMovie
             int movieId = intent.getIntExtra(MOVIE_ID, -1);
             this.movie = this.theMovieDbClient.getMovie(movieId);
 
-            final TextView txTitleList = findViewById(R.id.txTitleList);
+            final TextView txTitleList = findViewById(R.id.tvTitle);
             txTitleList.setText("Available Lists");
 
             recyclerView = findViewById(R.id.rvMovielists);

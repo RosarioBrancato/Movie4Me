@@ -17,152 +17,62 @@ import android.widget.TextView;
 import java.util.List;
 
 import ch.fhnw.movie4me.R;
-import ch.fhnw.movie4me.dto.Cast;
 import ch.fhnw.movie4me.dto.Movie;
+import ch.fhnw.movie4me.dto.Review;
 import ch.fhnw.movie4me.dto.Video;
 import ch.fhnw.movie4me.themoviedb.TheMovieDbClient;
 import ch.fhnw.movie4me.util.ImageUtils;
 
 public class MovieDetailActivity extends AppCompatActivity {
 
-    private TheMovieDbClient client;
-    private Movie movie;
-    private ActionBar actionBar;
-    ImageView imgMovie = null;
-    private List<Cast> lsreview;
-    private String strVideo;
-    private List<Video> video;
-    private String strMovieLink;
-    private int movieId;
     public static final String EXTRA_MOVIE_LIST_ID = "ch.fhnw.movie4me.ui.MOVIE_LIST_ID";
 
-
+    private TheMovieDbClient client;
+    private Movie movie;
+    private List<Review> reviews;
+    private List<Video> videos;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
-
-        actionBar = getSupportActionBar();
-        actionBar.setDisplayHomeAsUpEnabled(false);
-
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_movie_detail);
 
-        this.client = TheMovieDbClient.getInstance();
-
+        int movieId = -1;
         Intent intent = getIntent();
-
-        // Check if Intent is not empty and has data
         if (intent != null && intent.hasExtra("MOVIE_ID")) {
-            // Get data
             movieId = intent.getIntExtra("MOVIE_ID", -1);
-            this.movie = this.client.getMovie(movieId);
-
-
-            List<Cast> lsreview = this.client.getMovieCast(movieId);
-
-            video = this.client.getMovieVideos(movieId);
-            if(video.size() > 0) {
-                strVideo = video.get(0).getKey();
-
-
-                for (int i = 0; i < lsreview.size(); i++) {
-                    System.out.println("Review: " + lsreview.get(i).getName());
-                }
-                /**System.out.println("YT:" + strVideo);
-
-                 System.out.println(video.get(0).getSite().equals("YouTube"));
-                 System.out.println(video.get(0).getSite());
-                 String testing = "YouTube";
-                 String type = video.get(0).getType();
-                 System.out.println(testing);**/
-                if (video.get(0).getSite().equals("YouTube")) {
-                    strVideo = "https://www.youtube.com/watch?v=" + strVideo;
-                    System.out.println(strVideo);
-                } else {
-                    strVideo = "no trailer available";
-                }
-            }
-
-
-
-
-
-
-            /**Button btnShare = (Button) findViewById(R.id.btnShare);
-            btnShare.setOnClickListener(new View.OnClickListener() {
-                @Override
-
-
-                public void onClick(View v) {
-
-                }
-
-
-            });
-
-            Button btnDetails = (Button) findViewById(R.id.btnDetails);
-            btnDetails.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-                }
-            });
-
-            Button btnAddList = (Button) findViewById(R.id.btnAddList);
-            btnAddList.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-                }
-
-            });**/
-
-
-
-
-            final TextView txTitle = findViewById(R.id.txTitleList);
-            txTitle.setText(this.movie.getTitle());
-
-
-            imgMovie = findViewById(R.id.imgMovie);
-            Bitmap bitmap = ImageUtils.getBitmapFromUrl(movie.getPosterUrl());
-            if (bitmap != null) {
-
-                imgMovie.setImageBitmap(bitmap);
-            }
-
-
-            final TextView txDescription = findViewById(R.id.txDescription);
-            txDescription.setText(this.movie.getOverview());
-
-            final TextView txRelease = findViewById(R.id.txRelease);
-            txRelease.setText("Release: " + this.movie.getReleaseDateFormatted());
-
-            final TextView txLink = findViewById(R.id.txLink);
-            txLink.setText("Average Rating: " + this.movie.getVoteAvg());
-
-
-
-
-
         }
+
+        if (movieId <= 0) {
+            finish();
+        }
+
+        this.client = TheMovieDbClient.getInstance();
+        this.movie = this.client.getMovie(movieId);
+        this.reviews = this.client.getMovieReviews(movieId);
+        this.videos = this.client.getMovieVideos(movieId);
+
+        this.setUpActionBar();
+
+        final TextView txTitle = findViewById(R.id.tvTitle);
+        txTitle.setText(this.movie.getTitle());
+
+        final ImageView imgMovie = findViewById(R.id.ivMovie);
+        Bitmap bitmap = ImageUtils.getBitmapFromUrl(movie.getPosterUrl());
+        if (bitmap != null) {
+            imgMovie.setImageBitmap(bitmap);
+        }
+
+        final TextView txDescription = findViewById(R.id.tvDescription);
+        txDescription.setText(this.movie.getOverview());
+
+        final TextView txRelease = findViewById(R.id.tvRelease);
+        txRelease.setText("Release: " + this.movie.getReleaseDateFormatted());
+
+        final TextView txLink = findViewById(R.id.tvLink);
+        txLink.setText("Average Rating: " + this.movie.getVoteAvg());
     }
-
-
-    public void openAddList() {
-        Intent intent = new Intent(MovieDetailActivity.this, AddMovieToListActivity.class);
-        intent.putExtra(AddMovieToListActivity.MOVIE_ID, this.movie.getId());
-        startActivity(intent);
-    }
-
-
-    public void openDetails() {
-        Intent intent = new Intent(MovieDetailActivity.this, MovieActorsActivity.class);
-        intent.putExtra(MovieActorsActivity.EXTRA_MOVIE_ID, movieId);
-        startActivity(intent);
-    }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -174,46 +84,73 @@ public class MovieDetailActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         //https://developer.android.com/guide/topics/ui/menus#java
-        List<Movie> movies = null;
-
         switch (item.getItemId()) {
             case R.id.miAddToList:
-                this.actionBar.setTitle("Add to List");
-                //movies = this.client.getPopular();
-                openAddList();
+                addToList();
                 break;
             case R.id.miShare:
-                this.actionBar.setTitle("Share");
-                //movies = this.client.getNowPlaying();
-                Intent shareIntent = new Intent(Intent.ACTION_SEND);
-                shareIntent.setType("text/plain");
-                String shareBody = "Look i found this movie on Movie4Me for you: ";
-                String shareMessage = "Take a look at this awesome movie! " + this.movie.getTitle() + ": " + strVideo;
-                shareIntent.putExtra(Intent.EXTRA_SUBJECT, shareMessage);
-                shareIntent.putExtra(Intent.EXTRA_TEXT, shareBody);
-                startActivity(Intent.createChooser(shareIntent, "Medium to share with"));
+                this.shareTrailer();
                 break;
             case R.id.miActors:
-                this.actionBar.setTitle("Actors");
-                //movies = this.client.getUpcoming();
-                openDetails();
+                this.showActors();
                 break;
         }
 
-        if (movies != null) {
-            //this.resetAdapter(movies);
-            return true;
-        } else {
-            return false;
+        return false;
+    }
+
+    private void setUpActionBar() {
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(false);
+            actionBar.setTitle(this.movie.getTitle());
+        }
+    }
+
+    private void addToList() {
+        Intent intent = new Intent(MovieDetailActivity.this, AddMovieToListActivity.class);
+        intent.putExtra(AddMovieToListActivity.MOVIE_ID, this.movie.getId());
+        startActivity(intent);
+    }
+
+    private void showActors() {
+        Intent intent = new Intent(MovieDetailActivity.this, MovieActorsActivity.class);
+        intent.putExtra(MovieActorsActivity.EXTRA_MOVIE_ID, this.movie.getId());
+        startActivity(intent);
+    }
+
+    private void shareTrailer() {
+        Intent shareIntent = new Intent(Intent.ACTION_SEND);
+        shareIntent.setType("text/plain");
+        String shareBody = "Look i found this movie on Movie4Me for you: ";
+        String shareMessage = "Take a look at this awesome movie! " + this.movie.getTitle() + ": " + this.getTrailerUrl();
+        shareIntent.putExtra(Intent.EXTRA_SUBJECT, shareMessage);
+        shareIntent.putExtra(Intent.EXTRA_TEXT, shareBody);
+        startActivity(Intent.createChooser(shareIntent, "Medium to share with"));
+    }
+
+    private String getTrailerUrl() {
+        String strVideo = "no trailer available";
+
+        if (videos.size() > 0) {
+            strVideo = videos.get(0).getKey();
+
+            /**System.out.println("YT:" + strVideo);
+
+             System.out.println(video.get(0).getSite().equals("YouTube"));
+             System.out.println(video.get(0).getSite());
+             String testing = "YouTube";
+             String type = video.get(0).getType();
+             System.out.println(testing);**/
+            if (videos.get(0).getSite().equals("YouTube")) {
+                strVideo = "https://www.youtube.com/watch?v=" + strVideo;
+                System.out.println(strVideo);
+            } else {
+                strVideo = "no trailer available";
+            }
         }
 
-
+        return strVideo;
     }
 
-    private void resetAdapter(List<Movie> movies) {
-        /**MovieRecyclerViewAdapter adapter = new MovieRecyclerViewAdapter(this.getContext(), movies);
-        adapter.setOnMovieClickListener(this);
-        adapter.setOnMovieLongClickListener(this);
-        lvMovies.setAdapter(adapter);**/
-    }
 }
