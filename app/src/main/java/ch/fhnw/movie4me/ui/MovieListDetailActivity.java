@@ -180,7 +180,7 @@ public class MovieListDetailActivity extends AppCompatActivity implements OnMovi
 
     private void openListEditActivity() {
         Intent intent = new Intent(this, MovieListEditActivity.class);
-        intent.putExtra(EXTRA_MOVIE_LIST_ID, (int) movieList.getId());
+        intent.putExtra(MovieListEditActivity.EXTRA_MOVIE_LIST_ID, (int) movieList.getId());
         startActivity(intent);
     }
 

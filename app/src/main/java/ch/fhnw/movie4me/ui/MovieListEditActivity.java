@@ -1,5 +1,6 @@
 package ch.fhnw.movie4me.ui;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -17,14 +18,13 @@ import ch.fhnw.movie4me.dto.MovieList;
 
 public class MovieListEditActivity extends AppCompatActivity {
 
+    public static final String EXTRA_MOVIE_LIST_ID = "ch.fhnw.movie4me.ui.MovieListEditActivity.MOVIE_LIST_ID";
+
     private MovieListDb movieListDb;
     private MovieList movieList;
     private Button buttonSave;
-    private TextView textView;
     private EditText editText1;
     private EditText editText2;
-
-    public static final String EXTRA_MOVIE_LIST_ID = "ch.fhnw.movie4me.ui.MOVIE_LIST_ID";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,23 +33,26 @@ public class MovieListEditActivity extends AppCompatActivity {
 
         this.movieListDb = new MovieListDb();
 
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(false);
+
         Intent intent = getIntent();
         if (intent != null && intent.hasExtra(EXTRA_MOVIE_LIST_ID)) {
             // Get data
             int movieListId = intent.getIntExtra(EXTRA_MOVIE_LIST_ID, -1);
             this.movieList = this.movieListDb.get(movieListId);
 
-            textView = findViewById(R.id.titleNewList);
             editText1 = findViewById(R.id.nameInput);
             editText2 = findViewById(R.id.descriptionInput);
 
-            textView.setText("Edit List");
+            actionBar.setTitle("Edit List");
             editText1.setText(this.movieList.getName());
             editText2.setText(this.movieList.getDescription());
 
             // Toast.makeText(this, "have id", Toast.LENGTH_LONG).show();
 
         } else {
+            actionBar.setTitle("New List");
             this.movieList = new MovieList();
 
             editText1 = findViewById(R.id.nameInput);
