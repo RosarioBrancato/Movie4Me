@@ -23,7 +23,7 @@ import ch.fhnw.movie4me.themoviedb.TheMovieDbClient;
 
 public class AddMovieToListActivity extends AppCompatActivity implements OnMovieListClickListener {
 
-    public static final String MOVIE_ID = "ch.fhnw.movie4me.ui.AddMovieToListActivity.MOVIE_ID";
+    public static final String EXTRA_MOVIE_ID = "ch.fhnw.movie4me.ui.AddMovieToListActivity.MOVIE_ID";
 
     private Movie movie;
 
@@ -41,7 +41,7 @@ public class AddMovieToListActivity extends AppCompatActivity implements OnMovie
 
 
         Intent intent = getIntent();
-        if (intent != null && intent.hasExtra(MOVIE_ID)) {
+        if (intent != null && intent.hasExtra(EXTRA_MOVIE_ID)) {
 
             this.theMovieDbClient = TheMovieDbClient.getInstance();
             this.movieListDb = new MovieListDb();
@@ -49,10 +49,10 @@ public class AddMovieToListActivity extends AppCompatActivity implements OnMovie
 
             movieLists = movieListDb.getAll();
 
-            int movieId = intent.getIntExtra(MOVIE_ID, -1);
+            int movieId = intent.getIntExtra(EXTRA_MOVIE_ID, -1);
             this.movie = this.theMovieDbClient.getMovie(movieId);
 
-            final TextView txTitleList = findViewById(R.id.tvTitle);
+            final TextView txTitleList = findViewById(R.id.tvName);
             txTitleList.setText("Available Lists");
 
             recyclerView = findViewById(R.id.rvMovielists);

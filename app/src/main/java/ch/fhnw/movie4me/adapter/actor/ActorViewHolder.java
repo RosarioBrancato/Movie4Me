@@ -1,4 +1,4 @@
-package ch.fhnw.movie4me.adapter.movie;
+package ch.fhnw.movie4me.adapter.actor;
 
 import android.view.View;
 import android.widget.ImageView;
@@ -11,30 +11,30 @@ import ch.fhnw.movie4me.R;
 import ch.fhnw.movie4me.adapter.OnItemClickListener;
 import ch.fhnw.movie4me.adapter.OnItemLongClickListener;
 
-public class MovieViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
+public class ActorViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
 
-    private TextView tvTitle, tvReleaseDate;
+    private TextView tvName, tvCharacter;
     private ImageView ivPoster;
     private OnItemClickListener onItemClickListener;
     private OnItemLongClickListener onItemLongClickListener;
 
-    public MovieViewHolder(@NonNull View itemView) {
+    public ActorViewHolder(@NonNull View itemView) {
         super(itemView);
 
         ivPoster = itemView.findViewById(R.id.ivPoster);
-        tvTitle = itemView.findViewById(R.id.tvName);
-        tvReleaseDate = itemView.findViewById(R.id.tvReleaseDate);
+        tvName = itemView.findViewById(R.id.tvName);
+        tvCharacter = itemView.findViewById(R.id.tvCharacter);
 
         itemView.setOnClickListener(this);
         itemView.setOnLongClickListener(this);
     }
 
-    public TextView getTvTitle() {
-        return tvTitle;
+    public TextView getTvName() {
+        return tvName;
     }
 
-    public TextView getTvReleaseDate() {
-        return tvReleaseDate;
+    public TextView getTvCharacter() {
+        return tvCharacter;
     }
 
     public ImageView getIvPoster() {

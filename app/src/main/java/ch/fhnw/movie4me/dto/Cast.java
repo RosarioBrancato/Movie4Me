@@ -4,6 +4,8 @@ import com.google.gson.annotations.SerializedName;
 
 public class Cast {
 
+    private final String IMG_URL_ROOT = "https://image.tmdb.org/t/p/w500";
+
     @SerializedName("cast_id")
     private int castId;
 
@@ -19,6 +21,18 @@ public class Cast {
 
     @SerializedName("profile_path")
     private String profilePath;
+
+
+    public String getPosterUrl() {
+        String url = null;
+
+        String posterPath = this.getProfilePath();
+        if (posterPath != null) {
+            url = IMG_URL_ROOT + posterPath;
+        }
+
+        return url;
+    }
 
 
     public int getCastId() {

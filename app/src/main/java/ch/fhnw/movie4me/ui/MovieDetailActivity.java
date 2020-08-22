@@ -54,7 +54,7 @@ public class MovieDetailActivity extends AppCompatActivity {
 
         this.setUpActionBar();
 
-        final TextView txTitle = findViewById(R.id.tvTitle);
+        final TextView txTitle = findViewById(R.id.tvName);
         txTitle.setText(this.movie.getTitle());
 
         final ImageView imgMovie = findViewById(R.id.ivMovie);
@@ -122,7 +122,7 @@ public class MovieDetailActivity extends AppCompatActivity {
 
     private void addToList() {
         Intent intent = new Intent(MovieDetailActivity.this, AddMovieToListActivity.class);
-        intent.putExtra(AddMovieToListActivity.MOVIE_ID, this.movie.getId());
+        intent.putExtra(AddMovieToListActivity.EXTRA_MOVIE_ID, this.movie.getId());
         startActivity(intent);
     }
 
