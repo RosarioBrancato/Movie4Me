@@ -21,5 +21,5 @@
         android:id="@+id/navigation_search"
         android:name="ch.fhnw.movie4me.ui.search.SearchFragment"
         android:label="@string/title_search"
-        tools:layout="@layout/fragment_notifications" />
+        tools:layout="@layout/fragment_search" />
 </navigation>
