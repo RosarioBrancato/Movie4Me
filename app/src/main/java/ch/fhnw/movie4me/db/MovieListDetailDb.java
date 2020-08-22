@@ -1,14 +1,12 @@
 package ch.fhnw.movie4me.db;
 
 import android.content.ContentValues;
-import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import ch.fhnw.movie4me.dto.MovieList;
 import ch.fhnw.movie4me.dto.MovieListDetail;
 
 public class MovieListDetailDb {
@@ -58,6 +56,28 @@ public class MovieListDetailDb {
 
         SQLiteDatabase db = this.dbAccess.getReadableDatabase();
         Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_NAME + " WHERE " + COL_MOVIE_LIST_ID + " = ?", new String[]{movieListIdString});
+
+        while (cursor.moveToNext()) {
+            MovieListDetail movieListDetail = new MovieListDetail();
+            movieListDetail.setId(cursor.getLong(cursor.getColumnIndex(COL_ID)));
+            movieListDetail.setMovieListId(cursor.getLong(cursor.getColumnIndex(COL_MOVIE_LIST_ID)));
+            movieListDetail.setMovieId(cursor.getLong(cursor.getColumnIndex(COL_MOVIE_ID)));
+
+            movieListDetails.add(movieListDetail);
+        }
+
+        cursor.close();
+
+        return movieListDetails;
+    }
+
+    public List<MovieListDetail> getByMovieId(long movieListId, int movieId) {
+        String movieListIdString = String.valueOf(movieListId);
+        String movieIdString = String.valueOf(movieId);
+        List<MovieListDetail> movieListDetails = new ArrayList<>();
+
+        SQLiteDatabase db = this.dbAccess.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_NAME + " WHERE " + COL_MOVIE_LIST_ID + " = ? AND " + COL_MOVIE_ID + " = ?", new String[]{movieListIdString, movieIdString});
 
         while (cursor.moveToNext()) {
             MovieListDetail movieListDetail = new MovieListDetail();

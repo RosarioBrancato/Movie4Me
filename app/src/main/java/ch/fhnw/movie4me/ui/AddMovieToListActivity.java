@@ -2,7 +2,6 @@ package ch.fhnw.movie4me.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.ActionBar;
@@ -17,10 +16,8 @@ import ch.fhnw.movie4me.adapter.movielist.MovieListRecyclerViewAdapter;
 import ch.fhnw.movie4me.adapter.movielist.OnMovieListClickListener;
 import ch.fhnw.movie4me.db.MovieListDb;
 import ch.fhnw.movie4me.db.MovieListDetailDb;
-import ch.fhnw.movie4me.dto.Movie;
 import ch.fhnw.movie4me.dto.MovieList;
 import ch.fhnw.movie4me.dto.MovieListDetail;
-import ch.fhnw.movie4me.themoviedb.TheMovieDbClient;
 
 public class AddMovieToListActivity extends AppCompatActivity implements OnMovieListClickListener {
 
@@ -64,14 +61,20 @@ public class AddMovieToListActivity extends AppCompatActivity implements OnMovie
     @Override
     public void onMovieListClickListener(MovieList movieList) {
         if (this.movieId > 0) {
-            MovieListDetail detail = new MovieListDetail();
-            detail.setMovieId(this.movieId);
-            detail.setMovieListId(movieList.getId());
-            this.movieListDetailDb.save(detail);
+            List<MovieListDetail> details = this.movieListDetailDb.getByMovieId(movieList.getId(), this.movieId);
 
-            Toast.makeText(this, "Added to list", Toast.LENGTH_LONG).show();
+            if (details.size() != 0) {
+                Toast.makeText(this, "Movie is already in list", Toast.LENGTH_LONG).show();
+            } else {
+                MovieListDetail detail = new MovieListDetail();
+                detail.setMovieId(this.movieId);
+                detail.setMovieListId(movieList.getId());
+                this.movieListDetailDb.save(detail);
 
-            finish();
+                Toast.makeText(this, "Added to list", Toast.LENGTH_LONG).show();
+
+                finish();
+            }
         }
     }
 
