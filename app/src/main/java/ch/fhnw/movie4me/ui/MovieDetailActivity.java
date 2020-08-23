@@ -135,15 +135,24 @@ public class MovieDetailActivity extends AppCompatActivity {
     private void shareTrailer() {
         String url = this.getTrailerUrl();
         if (url.length() > 0) {
+
+            String body = "Look, I have found this movie on Movie4Me for you: ";
+            body +=System.getProperty("line.separator");
+            body +=System.getProperty("line.separator");
+            body += this.movie.getTitle();
+            body +=System.getProperty("line.separator");
+            body += url;
+
+            String subject = "Take a look at this awesome movie!";
+
             Intent shareIntent = new Intent(Intent.ACTION_SEND);
             shareIntent.setType("text/plain");
-            String shareBody = "Look i found this movie on Movie4Me for you: ";
-            String shareMessage = "Take a look at this awesome movie! " + this.movie.getTitle() + ": " + url;
-            shareIntent.putExtra(Intent.EXTRA_SUBJECT, shareMessage);
-            shareIntent.putExtra(Intent.EXTRA_TEXT, shareBody);
-            startActivity(Intent.createChooser(shareIntent, "Medium to share with"));
+            shareIntent.putExtra(Intent.EXTRA_SUBJECT, subject);
+            shareIntent.putExtra(Intent.EXTRA_TEXT, body);
+            startActivity(Intent.createChooser(shareIntent, "Share trailer to..."));
+
         } else {
-            Toast.makeText(this, "This movie has no trailer.", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "The movie has no trailer.", Toast.LENGTH_LONG).show();
         }
     }
 
