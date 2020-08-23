@@ -4,7 +4,7 @@ Android app to discover and track new movies.
 
 ## Features
 
-- predefined movie lists
+- view predefined movie lists
 - search for movies
 - create custom lists to track movies
 - share trailers
@@ -13,7 +13,7 @@ Android app to discover and track new movies.
 - Developed in Android Studio 4.0.1
 - The data is delivered by [The Movie Database API](https://developers.themoviedb.org/3/getting-started/introduction)
 
-## REPO SETUP
+## Repository Setup
 1. Copy and rename config_template.properties to config.properties
 2. Copy and rename config_test_template.properties to config_test.properties
-3. Enter you TheMovieDb API key in both properites-files.
+3. Enter your The Movie DB API key in both properites-files.
