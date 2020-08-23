@@ -11,7 +11,7 @@ Android app to discover and track new movies.
 
 ## Environment
 - Developed in Android Studio 4.0.1
-- The data is delivered by [The Movie Database API](https://pages.github.com/)
+- The data is delivered by [The Movie Database API](https://developers.themoviedb.org/3/getting-started/introduction)
 
 ## REPO SETUP
 1. Copy and rename config_template.properties to config.properties
