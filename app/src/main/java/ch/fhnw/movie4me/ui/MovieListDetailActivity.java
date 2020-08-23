@@ -50,7 +50,6 @@ public class MovieListDetailActivity extends AppCompatActivity implements OnMovi
 
         long movieListId = -1;
         Intent intent = getIntent();
-        // Check if Intent is not empty and has data
         if (intent != null && intent.hasExtra(EXTRA_MOVIE_LIST_ID)) {
             movieListId = intent.getLongExtra(EXTRA_MOVIE_LIST_ID, -1);
         }
@@ -72,18 +71,11 @@ public class MovieListDetailActivity extends AppCompatActivity implements OnMovi
             this.actionBar.setDisplayHomeAsUpEnabled(false);
         }
 
-        final TextView textListDescription = findViewById(R.id.txMovieListDescription);
-        if (this.movieList.getDescription() != null && this.movieList.getDescription().length() > 0) {
-            textListDescription.setText(this.movieList.getDescription());
-        } else {
-            textListDescription.setVisibility(View.INVISIBLE);
-        }
-
         this.lvMoviesList = findViewById(R.id.rvMovieListDetail);
         this.lvMoviesList.setHasFixedSize(true);
         this.lvMoviesList.setLayoutManager(new LinearLayoutManager(this));
 
-        refreshData(movieListId);
+        this.refreshData(movieListId);
     }
 
     @Override
@@ -159,6 +151,8 @@ public class MovieListDetailActivity extends AppCompatActivity implements OnMovi
     private void refreshData(long movieListId) {
         this.movieList = this.movieListDb.get(movieListId);
         this.actionBar.setTitle(this.movieList.getName());
+        this.refreshDescription();
+
         this.movieListDetails = this.movieListDetailDb.getByMovieListId(movieListId);
 
         this.movies.clear();
@@ -168,6 +162,15 @@ public class MovieListDetailActivity extends AppCompatActivity implements OnMovi
         }
 
         resetAdapter(this.movies);
+    }
+
+    private void refreshDescription() {
+        final TextView textListDescription = findViewById(R.id.txMovieListDescription);
+        if (this.movieList.getDescription() != null && this.movieList.getDescription().length() > 0) {
+            textListDescription.setText(this.movieList.getDescription());
+        } else {
+            textListDescription.setVisibility(View.INVISIBLE);
+        }
     }
 
     private void resetAdapter(List<Movie> movies) {
