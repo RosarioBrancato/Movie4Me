@@ -128,7 +128,7 @@ public class TheMovieDbClientTest {
         try {
             ClassLoader classLoader = this.getClass().getClassLoader();
             if (classLoader != null) {
-                InputStream stream = classLoader.getResourceAsStream("config-test.properties");
+                InputStream stream = classLoader.getResourceAsStream("config_test.properties");
                 if (stream != null) {
                     properties.load(stream);
                 }
