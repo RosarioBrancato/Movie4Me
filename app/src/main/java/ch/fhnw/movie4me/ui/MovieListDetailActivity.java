@@ -112,7 +112,7 @@ public class MovieListDetailActivity extends AppCompatActivity implements OnMovi
     public void onMovieClickListener(Movie movie) {
         if (movie != null) {
             Intent intent = new Intent(this, MovieDetailActivity.class);
-            intent.putExtra("MOVIE_ID", movie.getId());
+            intent.putExtra(MovieDetailActivity.EXTRA_MOVIE_ID, movie.getId());
             startActivity(intent);
         }
     }
